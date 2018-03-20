@@ -11,7 +11,14 @@ public class Item {
 	private String catagory;
 	private double price;
 	private int stock;
+	private String pic;
 	
+	public String getPic() {
+		return pic;
+	}
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
 	public int getId() {
 		return id;
 	}

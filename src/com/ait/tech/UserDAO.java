@@ -1,6 +1,7 @@
 package com.ait.tech;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,6 +30,96 @@ public class UserDAO {
 			}
 	        return list;
 	    }
+		
+	    //find by id
+	    public User findById(int id) {
+	    	String sql = "select * from users where user_id = ?";
+	    	User user = null;
+	    	Connection c =null;
+	    	try {
+	    		c = ConnectionHelper.getConnection();
+	    		PreparedStatement ps = c.prepareStatement(sql);
+	    		ps.setInt(1, id);
+	    		ResultSet rs = ps.executeQuery();
+	    		if(rs.next()) {
+	    			user=processRow(rs);
+	    		}
+	    	}
+	    	catch(Exception e) {
+	    		e.printStackTrace();
+	    		throw new RuntimeException(e);
+	    	}
+	    	finally {
+	    		ConnectionHelper.close(c);
+	    	}
+	    	return user;
+	    }
+	    
+		//create
+	  	public User create(User user) {
+	  		Connection c= null;
+	  		PreparedStatement ps = null;
+	  		try {
+	  			c= ConnectionHelper.getConnection();
+	  			ps = c.prepareStatement("insert into users(user_id,user_email,user_name,user_address,user_dob,role) values(?,?,?,?,?,?,?)",
+	  					new String[] {"ID"});
+	  			ps.setInt(1, user.getId());
+	  			ps.setString(2, user.getEmail());
+	  			ps.setString(3, user.getName());
+	  			ps.setString(4, user.getPass());
+	  			ps.setString(5, user.getAddress());
+	  			ps.setDate(6, user.getDob());
+	  			ps.setString(7, user.getRole());
+	  			ps.executeUpdate();
+	  			ResultSet rs = ps.getGeneratedKeys();
+	  			rs.next();
+	  			int id = rs.getInt(1);
+	  			user.setId(id);
+	  		}catch(Exception e) {
+	  			e.printStackTrace();
+	  		}finally {
+	  			ConnectionHelper.close(c);
+	  		}
+	  		return user;
+	  	}
+	  	//update
+	  	public User update(User user) {
+	  		Connection c = null;
+	  		try {
+	  			c=ConnectionHelper.getConnection();
+	  			PreparedStatement ps = c.prepareStatement("update users set user_email=?,user_name=?, where user_id=?");
+	  			ps.setString(1, user.getEmail());
+	  			ps.setString(2, user.getName());
+	  			ps.setString(3, user.getPass());
+	  			ps.setString(4, user.getAddress());
+	  			ps.setDate(5, user.getDob());
+	  			ps.setString(6, user.getRole());
+	  			ps.setInt(7, user.getId());
+	  			ps.executeUpdate();
+	  		}catch(SQLException e){
+	  			e.printStackTrace();
+	  			throw new RuntimeException(e);
+	  		}finally {
+	  			ConnectionHelper.close(c);
+	  		}
+	  		return user;
+	  	}
+	  	//delete
+	  	public boolean remove(int id) {
+	  		Connection c = null;
+	  		try {
+	  			c = ConnectionHelper.getConnection();
+	  			PreparedStatement ps = c.prepareStatement("delete from users where user_id=?");
+	  			ps.setInt(1,id);
+	  			int count = ps.executeUpdate();
+	  			return count==1;
+	  		}catch(Exception e) {
+	  			e.printStackTrace();
+	  			throw new RuntimeException();
+	  		}finally {
+	  			ConnectionHelper.close(c);
+	  		}
+	  	}
 		
 		// process row
 	    protected User processRow(ResultSet rs) throws SQLException {

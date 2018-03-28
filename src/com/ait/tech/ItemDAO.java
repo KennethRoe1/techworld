@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ItemDAO {
 	
 	//find all
@@ -29,6 +30,30 @@ public class ItemDAO {
 			ConnectionHelper.close(c);
 		}
         return list;
+    }
+	
+    //find by id
+    public Item findById(int id) {
+    	String sql = "select * from items where item_id = ?";
+    	Item item = null;
+    	Connection c =null;
+    	try {
+    		c = ConnectionHelper.getConnection();
+    		PreparedStatement ps = c.prepareStatement(sql);
+    		ps.setInt(1, id);
+    		ResultSet rs = ps.executeQuery();
+    		if(rs.next()) {
+    			item=processRow(rs);
+    		}
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    		throw new RuntimeException(e);
+    	}
+    	finally {
+    		ConnectionHelper.close(c);
+    	}
+    	return item;
     }
     
 	//create

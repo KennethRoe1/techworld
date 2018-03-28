@@ -1,4 +1,4 @@
-var rootURL = "http://localhost:8080/MastersGameStore/rest/user";
+var rootURL = "http://localhost:8080/TechWorld/rest/users/";
 var user = "";
 var ADMIN ="admin";
 var USER = "user";

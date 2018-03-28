@@ -8,7 +8,7 @@ public class Item {
 	private int id;
 	private String name;
 	private String description;
-	private String catagory;
+	private String category;
 	private double price;
 	private int stock;
 	private String pic;
@@ -37,11 +37,11 @@ public class Item {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getCatagory() {
-		return catagory;
+	public String getCategory() {
+		return category;
 	}
-	public void setCatagory(String catagory) {
-		this.catagory = catagory;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	public double getPrice() {
 		return price;

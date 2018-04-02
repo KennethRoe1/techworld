@@ -5,7 +5,7 @@ $(document).ready(function(){
 var rootURL = "http://localhost:8080/TechWorld/rest/items";
 var currenItem;
 
-$(document).on("click", "#Table a",function(){
+$(document).on("click", "#itemTable a",function(){
 	event.preventDefault();
 	$('#myModal').modal('show');
 	findById(this.id);
@@ -145,11 +145,12 @@ function renderList(data){
 	output='<div class="row">';
 	$.each(list, function(index, item){
 		var img="pics/"+item.pic;
+		console.log(img);
 		output+=('<div class="col-sm-6 col-md-4 col-lg-3">'+
 				'<div class="card"><img src='+'"'+img+'"'+
 				'height="150"><p>Name: '+item.name+'</p>'+
 				'<p>Details: '+item.description+'</p>'+
-				'<p>Stock: '+item.stock+' GHz</p>'+
+				'<p>Stock: '+item.stock+'</p>'+
 				'<p>Price: $'+item.price+'</p>'+
 				'</div></div>');
 	});

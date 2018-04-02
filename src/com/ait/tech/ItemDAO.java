@@ -131,6 +131,7 @@ public class ItemDAO {
         item.setCategory(rs.getString("category"));
         item.setPrice(rs.getDouble("item_price"));
         item.setStock(rs.getInt("stock_count"));
+        item.setPic(rs.getString("pic"));
         return item;
     }
   	

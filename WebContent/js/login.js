@@ -47,7 +47,7 @@ $(document).ready(function () {
 });
 
 function logout(){
-	clearUsernameAndPasswordField();
+	clearEmailAndPasswordField();
 	loginVar = 0;
 	localStorage.setItem('loginVar', 0);
 	window.location.reload(true);
@@ -55,14 +55,14 @@ function logout(){
 
 function login(){
 	
-	var usernameToCheck=$('#username').val();
+	var emailToCheck=$('#email').val();
 	var passwordToCheck=$('#pass').val();
-	if (!usernameToCheck || !passwordToCheck){
-		$('#loginError').slideDown().html('<span id="error">You must enter a username and password</span>');	
+	if (!emailToCheck || !passwordToCheck){
+		$('#loginError').slideDown().html('<span id="error">You must enter a email and password</span>');	
 	}else{
-		user = findByUsername(usernameToCheck);
+		user = findByEmail(emailToCheck);
 		if(user != null){
-			var correctUsername = user.username;
+			var correctEmail = user.email;
 			var correctPassword = user.password;
 			if(passwordToCheck == correctPassword){
 				userTypeLogin(user.role);
@@ -74,21 +74,20 @@ function login(){
 
 		}else{
 			console.log("user error");
-			clearUsernameAndPasswordField();
-			$('#loginError').slideDown().html("<span>Invalid Username</span>");
+			clearEmailAndPasswordField();
+			$('#loginError').slideDown().html("<span>Invalid Email</span>");
 			$('#btnLogout').hide();
 		}
 	}
 	return false;
 };
 
-var  findByUsername= function(username) {
+var  findByEmail= function(email) {
 	var userData;
-	console.log('findByUsername: ' + username);
+	console.log('findByEmail: ' + email);
 	$.ajax({
 		type: 'GET',
-		url: rootURL + '/'+username+'/',
-		
+		url: rootURL + '/'+email+'/',
 		dataType: "json",
 		async: false,
 		success: function (data) {
@@ -115,17 +114,11 @@ function userTypeLogin(userRole){
 		loginVar = 2;
 		localStorage.setItem('loginVar', 2);
 		 window.location.reload();
-	}else if (userRole=="user"){
-		user="user";
-	
-		loginVar = 3;
-		localStorage.setItem('loginVar', 3);
-		 window.location.reload();
 	}
 };
 
-function clearUsernameAndPasswordField(){
-	$('#username').val('');
+function clearEmailAndPasswordField(){
+	$('#email').val('');
 	$('#pass').val('');
 };
 
@@ -141,5 +134,5 @@ function loadUserTemplate(userRole){
 	});
 	$('#homePage').show();
 	fillSidebar();
-	clearUsernameAndPasswordField();
+	clearEmailAndPasswordField();
 };

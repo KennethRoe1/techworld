@@ -24,5 +24,19 @@ public class UserResource {
 		System.out.println("findAll");
 		return dao.findAll();
 	}
-
+	@GET @Path("{id}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public User findById(@PathParam("id") String id) {
+		System.out.println("findById "+id);
+		return dao.findById(Integer.parseInt(id));
+	}
+	@GET @Path("/query")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public List<User> findByEmailAndPass(
+			@QueryParam("email")String email,
+			@QueryParam("pass")String pass){
+		System.out.println("findByEmailAndPass: "+email+" "+pass);
+		return dao.findByEmailAndPass(email,pass);
+	}
+	
 }

@@ -54,6 +54,28 @@ public class UserDAO {
 	    	}
 	    	return user;
 	    }
+	    //find by email
+	    public List<User> findByEmailAndPass(String email, String pass){
+	    	List<User> list = new ArrayList<User>();
+	    	Connection c = null;
+	    	String sql = "select * from users as e where upper(user_email) like ? AND upper(user_pass) like ? order by user_id";
+	    	try {
+	    		c=ConnectionHelper.getConnection();
+	    		PreparedStatement ps = c.prepareStatement(sql);
+	    		ps.setString(1, "%"+email.toUpperCase()+"%");
+	    		ps.setString(2, "%"+pass.toUpperCase()+"%");
+	    		ResultSet rs = ps.executeQuery();
+	    		while(rs.next()) {
+	    			list.add(processRow(rs));
+	    		}
+	    	}catch(SQLException e) {
+	    		e.printStackTrace();
+	    		throw new RuntimeException(e);
+	    	}finally {
+	    		ConnectionHelper.close(c);
+	    	}
+	    	return list;
+	    }
 	    
 		//create
 	  	public User create(User user) {

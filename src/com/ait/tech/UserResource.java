@@ -32,11 +32,10 @@ public class UserResource {
 	}
 	@GET @Path("/query")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List<User> findByEmailAndPass(
-			@QueryParam("email")String email,
-			@QueryParam("pass")String pass){
-		System.out.println("findByEmailAndPass: "+email+" "+pass);
-		return dao.findByEmailAndPass(email,pass);
+	public List<User> findByEmail(
+			@QueryParam("email")String email){
+		System.out.println("findByEmail: "+email);
+		return dao.findByEmail(email);
 	}
 	
 }

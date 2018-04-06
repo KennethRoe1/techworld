@@ -8,17 +8,22 @@
 <script src="js/bootstrapV4.js"></script>
 <script src="js/jquery.dataTables.js"></script>
 <script src="js/itemTabs.js"></script>
+<script src="js/login.js"></script>
 <link rel="stylesheet" href="css/bootstrapV4.css"/>
 <link rel="stylesheet" href="css/font-awesome.css"/>
 <link rel="stylesheet" href="css/jquery.dataTables.css"/>
 <link rel="stylesheet" href="css/card.css"/>
+<link rel="stylesheet" href="css/topbar.css"/>
 </head>
 <body>
-<h2 class="banner">TechWorld</h2>
+<div class="banner">
+<a id="login" href="login">Login</a><a id="account" href="user.html">Account</a><button id="logout">Logout</button>
+<h2>TechWorld</h2>
+</div>
 <section>
 <ul class="nav nav-tabs" role="tablist">
 	<li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#user" role="tab"><span class="fa fa-home fa-lg"></span>User</a>
+    <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><span class="fa fa-home fa-lg"></span>Home</a>
     </li>
     <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#items" role="tab"><span class="fa fa-list fa-lg"></span>Items</a>
@@ -29,8 +34,19 @@
 </ul>
 <!-- Tab panes -->
     <div class="tab-content">
-        <div class="tab-pane active" id="user">
-        </div>
+        <div class="tab-pane active" id="home">
+        hello
+	        <div class="modal fade" id="loginModal" role="dialog">
+	    	<div class="modal-dialog">
+			<div class="modal-content">
+			<div class="modal-header"></div>
+			<label id="email">E-mail</label><input type="text" name="email">
+			<label id="pass">Password</label><input type="text" name="pass">
+			<div class="modal-footer"></div>
+			</div>
+			</div>
+			</div>
+		</div>
        
         <div class="tab-pane" id="items">
             <h2>Products</h2>
@@ -45,39 +61,37 @@
             	<tbody id="itemTable">
             	</tbody>
             </table>
-            <div class="modal fade" id="myModal" role="dialog">
-	    	<div class="modal-dialog">
-			<div class="modal-content">
-			<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 class="modal-title">Items</h4>
+        <div class="modal fade" id="itemModal" role="dialog">
+    	<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		<h4 class="modal-title">Items</h4>
+		</div>
+				<div>
+				<button id="btnAdd">New Item</button>
 			</div>
-				<div class="mainArea">
-					<div>
-					<button id="btnAdd">New Item</button>
-				</div>
-				<img id="pic" height="120"/><br>
-				<label>Id:</label>
-				<input id="id" name="id" type="text" disabled /><br>
-				<label>Name:</label>
-				<input type="text" id="name" name="name" /><br>
-				<label>Description:</label>
-				<input type="text" id="description" name="description"/><br>
-				<label>Category:</label>
-				<input type="text" id="category" name="category"/><br>
-				<label>Price</label>
-				<input type="text" id="price" name="price"/><br>
-				<label>Stock:</label>
-				<input type="text" id="stock" name="stock"/><br>
-				<button id="create">Save</button>
-				<button id="delete">Delete</button>
-				</div>
-			<div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-			</div>
-    </div>
-  </div>
+			<img id="pic" height="120"/><br>
+			<label>Id:</label>
+			<input id="id" name="id" type="text" disabled /><br>
+			<label>Name:</label>
+			<input type="text" id="name" name="name" /><br>
+			<label>Description:</label>
+			<input type="text" id="description" name="description"/><br>
+			<label>Category:</label>
+			<input type="text" id="category" name="category"/><br>
+			<label>Price</label>
+			<input type="text" id="price" name="price"/><br>
+			<label>Stock:</label>
+			<input type="text" id="stock" name="stock"/><br>
+			<button id="create">Save</button>
+			<button id="delete">Delete</button>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+		</div>
+   		</div>
+ 		</div>
         </div>
     </div>
     </section>

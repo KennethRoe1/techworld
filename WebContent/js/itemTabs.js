@@ -7,7 +7,13 @@ var currenItem;
 
 $(document).on("click", "#itemTable a",function(){
 	event.preventDefault();
-	$('#myModal').modal('show');
+	$('#itemModal').modal('show');
+	findById(this.id);
+});
+
+$(document).on("click", "#login",function(){
+	event.preventDefault();
+	$('#loginmModal').modal('show');
 	findById(this.id);
 });
 
@@ -145,7 +151,6 @@ function renderList(data){
 	output='<div class="row">';
 	$.each(list, function(index, item){
 		var img="pics/"+item.pic;
-		console.log(img);
 		output+=('<div class="col-sm-6 col-md-4 col-lg-3">'+
 				'<div class="card"><img src='+'"'+img+'"'+
 				'height="150"><p>Name: '+item.name+'</p>'+

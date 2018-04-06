@@ -1,0 +1,14 @@
+.banner{
+    overflow: hidden;
+    top: 0;
+    width: 100%;
+    margin-botton:10px;
+}
+.banner a{
+	float: right;
+    text-align: center;
+    padding: 6px 8px;
+}
+.banner button{
+	float: right;
+}

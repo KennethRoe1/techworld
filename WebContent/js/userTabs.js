@@ -1,10 +1,20 @@
 $(document).ready(function(){
-	findById();
+	findAll2();
 });
 var userURL = "http://localhost:8080/TechWorld/rest/users";
 var currentUser;
 
-var findById= function(id){
+var findAll2 = function() {
+	console.log('findAll');
+	$.ajax({
+		type: 'GET',
+		url: userURL,
+		dayaType:"json",
+		success: renderList2
+	});
+};
+
+var findById2= function(id){
 	console.log('findById '+id);
 	$.ajax({
 		type: 'GET',
@@ -30,37 +40,21 @@ var renderDetails=function(item){
 	$('role').val(user.role);
 }
 
-var formToJSON=function(){
+var formToJSON2=function(){
 	return JSON.stringify({
-		"pic": "",
 		"name": $('#name').val(),
-		"description":$('#description').val(),
-		"category":$('category').val(),
-		"stock": $('#tock').val(),
-		"price": $('#price').val()
+		"email":$('#email').val(),
+		"pass":$('pass').val(),
+		"address": $('#address').val(),
+		"dob": $('#dob').val(),
+		"role": $('#role').val()
 	});
 };
 
-function renderList(data){
+function renderList2(data){
 	list=data;
-	$.each(list, function(index, item){
-		$('#userTable').append('<tr><td>'+item.name+'</td><td>'+item.catagory+
-		'</td><td>'+item.price+'</td><td>'+item.stock+'</td><td><a id="'+item.id+'" href="edit">Edit</td></tr>');
+	$.each(list, function(index, user){
+		$('#userTable').append('<tr><td>'+user.name+'</td><td>'+user.email+
+		'</td><td>'+user.address+'</td><td>'+user.dob+'</td><td><a id="'+user.id+'" href="edit">Edit</td></tr>');
 	});
-	
-	$('#table_id').DataTable();
-	output='<div class="row">';
-	$.each(list, function(index, item){
-		var img="pics/"+item.pic;
-		console.log(img);
-		output+=('<div class="col-sm-6 col-md-4 col-lg-3">'+
-				'<div class="card"><img src='+'"'+img+'"'+
-				'height="150"><p>Name: '+item.name+'</p>'+
-				'<p>Details: '+item.description+'</p>'+
-				'<p>Stock: '+item.stock+'</p>'+
-				'<p>Price: $'+item.price+'</p>'+
-				'</div></div>');
-	});
-	output+='</div>';
-	$('#userList').append(output);
 };

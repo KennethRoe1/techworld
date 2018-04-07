@@ -78,7 +78,7 @@ var formToJSON=function(){
 		"name": $('#name').val(),
 		"description":$('#description').val(),
 		"category":$('category').val(),
-		"stock": $('#tock').val(),
+		"stock": $('#stock').val(),
 		"price": $('#price').val()
 	});
 };

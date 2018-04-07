@@ -6,7 +6,7 @@ var USER = "user";
 
 var loginVar = localStorage.getItem('loginVar');
 $(document).ready(function () {
-	
+	/*
 	if (loginVar == 1){
 		$('#login').hide();
 		$('#adminTab').show();
@@ -28,7 +28,7 @@ $(document).ready(function () {
 		$('#adminTab').hide();
 		$('#usersTab').hide();
 	}
-	
+	*/
 	$(document).on("click","#login",function(){
 		$('#loginModal').modal('show');
 		return false;

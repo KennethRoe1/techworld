@@ -8,6 +8,7 @@
 <script src="js/bootstrapV4.js"></script>
 <script src="js/jquery.dataTables.js"></script>
 <script src="js/itemTabs.js"></script>
+<script src="js/userTabs.js"></script>
 <script src="js/login.js"></script>
 <link rel="stylesheet" href="css/bootstrapV4.css"/>
 <link rel="stylesheet" href="css/font-awesome.css"/>
@@ -91,7 +92,13 @@
 </div>
 
 		<div class="tab-pane" id="users">
-            Populate with user data(used by admin)
+            <table id="table_id">
+            	<thead>
+            		<tr><th>Name</th><th>E-mail</th><th>Address</th><th>Date of Birth</th><th>Edit</th></tr>
+            	</thead>
+            	<tbody id="userTable">
+            	</tbody>
+            </table>
         </div>
     </div>
     </section>

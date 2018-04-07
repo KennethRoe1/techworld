@@ -8,12 +8,12 @@ var findById= function(id){
 	console.log('findById '+id);
 	$.ajax({
 		type: 'GET',
-		url: rootURL + '/'+id,
+		url: userURL + '/'+id,
 		dataType: "json",
 		success: function(data){
 			$('#btnDelete').show();
 			console.log('findById success: '+data.name);
-			currentItem = data;
+			currentUser = data;
 			$('#delete').show();
 			renderDetails(currentUser);
 		}
@@ -21,13 +21,13 @@ var findById= function(id){
 }
 
 var renderDetails=function(item){
-	$('#pic').attr('src', 'pics/'+item.pic);
-	$('#id').val(item.id);
-	$('#name').val(item.name);
-	$('#description').val(item.description);
-	$('#category').val(item.category);
-	$('#stock').val(item.stock);
-	$('#price').val(item.price)
+	$('#id').val(user.id);
+	$('#name').val(user.name);
+	$('#email').val(user.email);
+	$('#pass').val(user.pass);
+	$('address').val(user.address);
+	$('dob').val(user.dob);
+	$('role').val(user.role);
 }
 
 var formToJSON=function(){
@@ -44,7 +44,7 @@ var formToJSON=function(){
 function renderList(data){
 	list=data;
 	$.each(list, function(index, item){
-		$('#itemTable').append('<tr><td>'+item.name+'</td><td>'+item.catagory+
+		$('#userTable').append('<tr><td>'+item.name+'</td><td>'+item.catagory+
 		'</td><td>'+item.price+'</td><td>'+item.stock+'</td><td><a id="'+item.id+'" href="edit">Edit</td></tr>');
 	});
 	
@@ -62,5 +62,5 @@ function renderList(data){
 				'</div></div>');
 	});
 	output+='</div>';
-	$('#productList').append(output);
+	$('#userList').append(output);
 };

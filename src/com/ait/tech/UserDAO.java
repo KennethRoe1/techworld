@@ -54,7 +54,7 @@ public class UserDAO {
 	    	}
 	    	return user;
 	    }
-	    //fin my email
+	    //find my email
 	    public List<User> findByEmail(String email){
 	    	List<User> list = new ArrayList<User>();
 	    	Connection c = null;

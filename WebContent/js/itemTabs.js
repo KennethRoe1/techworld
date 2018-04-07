@@ -11,12 +11,6 @@ $(document).on("click", "#itemTable a",function(){
 	findById(this.id);
 });
 
-$(document).on("click", "#login",function(){
-	event.preventDefault();
-	$('#loginmModal').modal('show');
-	findById(this.id);
-});
-
 $(document).on("click", '#btnAdd', function(){
 	newItem();
 });

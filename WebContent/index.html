@@ -23,29 +23,24 @@
 <section>
 <ul class="nav nav-tabs" role="tablist">
 	<li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><span class="fa fa-home fa-lg"></span>Home</a>
+    <a class="nav-link active" data-toggle="tab" href="#home" role="tab" id="homeTab"><span class="fa fa-home fa-lg"></span>Home</a>
     </li>
     <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#items" role="tab"><span class="fa fa-list fa-lg"></span>Items</a>
+    <a class="nav-link" data-toggle="tab" href="#items" role="tab" id="itemsTab"><span class="fa fa-list fa-lg"></span>Items</a>
     </li>
     <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#admin" role="tab"><span class="fa fa-user-circle fa-lg"></span>Admin</a>
+    <a class="nav-link" data-toggle="tab" href="#admin" role="tab" id="adminTab"><span class="fa fa-user-circle fa-lg"></span>Admin</a>
     </li>
+    <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#users" role="tab" id="usersTab"><span class="fa fa-user-circle fa-lg"></span>Users</a>
+    </li>
+    
 </ul>
 <!-- Tab panes -->
+
     <div class="tab-content">
         <div class="tab-pane active" id="home">
         hello
-	        <div class="modal fade" id="loginModal" role="dialog">
-	    	<div class="modal-dialog">
-			<div class="modal-content">
-			<div class="modal-header"></div>
-			<label id="email">E-mail</label><input type="text" name="email">
-			<label id="pass">Password</label><input type="text" name="pass">
-			<div class="modal-footer"></div>
-			</div>
-			</div>
-			</div>
 		</div>
        
         <div class="tab-pane" id="items">
@@ -53,7 +48,8 @@
             <div id="productList"></div>
             
         </div>
-        <div class="tab-pane" id="admin">
+        
+<div class="tab-pane" id="admin">
             <table id="table_id">
             	<thead>
             		<tr><th>Name</th><th>Price</th><th>Category</th><th>Stock</th><th>Edit</th></tr>
@@ -61,16 +57,16 @@
             	<tbody id="itemTable">
             	</tbody>
             </table>
-        <div class="modal fade" id="itemModal" role="dialog">
+	<div class="modal fade" id="itemModal" role="dialog">
     	<div class="modal-dialog">
-		<div class="modal-content">
-		<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-		<h4 class="modal-title">Items</h4>
-		</div>
+			<div class="modal-content">
+			<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Items</h4>
+			</div>
 				<div>
 				<button id="btnAdd">New Item</button>
-			</div>
+				</div>
 			<img id="pic" height="120"/><br>
 			<label>Id:</label>
 			<input id="id" name="id" type="text" disabled /><br>
@@ -86,14 +82,33 @@
 			<input type="text" id="stock" name="stock"/><br>
 			<button id="create">Save</button>
 			<button id="delete">Delete</button>
-		<div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		</div>
-		</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
    		</div>
- 		</div>
+	</div>
+</div>
+
+		<div class="tab-pane" id="users">
+            Populate with user data(used by admin)
         </div>
     </div>
     </section>
+    
+    <div class="modal fade" id="loginModal" role="dialog">
+   	<div class="modal-dialog">
+	<div class="modal-content">
+	<div class="modal-header"></div>
+	<label>E-mail</label><input type="text" id="email">
+	<label>Password</label><input type="text" id="pass">
+	<p id="loginError"></p>
+	<button id="loginBtn">Login</button>
+	<div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	</div>
+	</div>
+	</div>
+	</div>
 </body>
 </html>

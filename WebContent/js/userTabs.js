@@ -1,11 +1,18 @@
 $(document).ready(function(){
 	findAll2();
+	$('#delete2').hide()
 });
 var userURL = "http://localhost:8080/TechWorld/rest/users";
 var currentUser;
 
+$(document).on("click", "#userTable a",function(){
+	event.preventDefault();
+	$('#userModal').modal('show');
+	findById2(this.id);
+});
+
 var findAll2 = function() {
-	console.log('findAll');
+	console.log('findAll2');
 	$.ajax({
 		type: 'GET',
 		url: userURL,
@@ -13,6 +20,20 @@ var findAll2 = function() {
 		success: renderList2
 	});
 };
+
+$(document).on("click", '#btnAdd2', function(){
+	newUser();
+});
+$(document).on("click", '#create2', function(){
+	if($('#id').val()=='')
+		addItem();
+	else
+		updateUser();
+	return false;
+});
+$(document).on("click", '#delete2', function(){
+	deleteUser();
+});
 
 var findById2= function(id){
 	console.log('findById '+id);
@@ -25,12 +46,12 @@ var findById2= function(id){
 			console.log('findById success: '+data.name);
 			currentUser = data;
 			$('#delete').show();
-			renderDetails(currentUser);
+			renderDetails2(currentUser);
 		}
 	});
 }
 
-var renderDetails=function(item){
+var renderDetails2=function(item){
 	$('#id').val(user.id);
 	$('#name').val(user.name);
 	$('#email').val(user.email);
@@ -57,4 +78,5 @@ function renderList2(data){
 		$('#userTable').append('<tr><td>'+user.name+'</td><td>'+user.email+
 		'</td><td>'+user.address+'</td><td>'+user.dob+'</td><td><a id="'+user.id+'" href="edit">Edit</td></tr>');
 	});
+	$('#table_id2').DataTable();
 };

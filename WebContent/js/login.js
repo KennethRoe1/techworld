@@ -1,8 +1,5 @@
 var userURL = "http://localhost:8080/TechWorld/rest/users";
-var user = "";
-var ADMIN ="admin";
-var STAFF = "staff";
-var USER = "user";
+var user;
 
 var loginVar = localStorage.getItem('loginVar');
 $(document).ready(function () {
@@ -34,7 +31,7 @@ $(document).ready(function () {
 		return false;
 	});
 	
-	$('#loginBtn').click(function () {
+	$(document).on('click','#loginBtn', function(){
 		console.log("login pressed");
 		login();
 		return false;
@@ -45,6 +42,7 @@ $(document).ready(function () {
 		$('#logout').hide();
 		return false;
 	});
+});
 	
 	function logout(){
 		clearLogin();
@@ -57,42 +55,43 @@ $(document).ready(function () {
 		$('#pass').val('');
 	};
 
-	function login(){
-		var usernameToCheck=$('#email').val();
-		var passwordToCheck=$('#pass').val();
-		if (!usernameToCheck || !passwordToCheck){
-			$('#loginError').slideDown().html('<span id="error">You must enter a username and password</span>');	
+function login(){
+	var emailToCheck=$("#email").val();
+	var passwordToCheck=$("#pass").val();
+	if (!emailToCheck || !passwordToCheck){
+		$('#loginError').slideDown().html('<span id="error">You must enter a username and password</span>');	
+	}
+	else{
+		user = findByEmail(emailToCheck);
+		console.log(user);
+		if(user != null){
+			var correctEmail = user.email;
+			var correctPassword = user.pass;
+			console.log(correctEmail+' '+correctPassword)
+			if(passwordToCheck == correctPassword){
+				//Temp login admin
+				loginVar = 1;
+				localStorage.setItem('loginVar', 1);
+				console.log("admin")
+				 window.location.reload();
+			}else{
+				$('#pass').val('');
+				$('#loginError').slideDown().html('<span id="error">Invalid Password</span>');	
+				$('#btnLogout').hide();
+			}
 		}
 		else{
-			user = findByEmail(usernameToCheck);
-			if(user != null){
-				var correctUsername = user.name;
-				var correctPassword = user.pass;
-				console.log(correctUsername+' '+correctPassword)
-				if(passwordToCheck == correctPassword){
-					//Temp login admin
-					loginVar = 1;
-					localStorage.setItem('loginVar', 1);
-					console.log("admin")
-					 window.location.reload();
-				}else{
-					$('#pass').val('');
-					$('#loginError').slideDown().html('<span id="error">Invalid Password</span>');	
-					$('#btnLogout').hide();
-				}
-			}
-			else{
-				console.log("user error");
-				clearLogin();
-				$('#loginError').slideDown().html("<span>Invalid Username</span>");
-				$('#Logout').hide();
-			}
+			console.log("user error");
+			clearLogin();
+			$('#loginError').slideDown().html("<span>Invalid Username</span>");
+			$('#Logout').hide();
 		}
-		return false;
-	};
+	}
+	return false;
+};
 	
 	var  findByEmail= function(email) {
-		var Cuser;
+		var userData;
 		console.log('findByEmail: ' + email);
 		$.ajax({
 			type: 'GET',
@@ -100,13 +99,11 @@ $(document).ready(function () {
 			dataType: "json",
 			async: false,
 			success: function (data) {
-				$('#btnLogout').show();
-				Cuser = data
+				userData = data
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log("user doesnt exist error")
 			}
 		});
-		return Cuser;
+		return userData;
 	};
-});

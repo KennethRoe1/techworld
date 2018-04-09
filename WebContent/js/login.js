@@ -3,7 +3,7 @@ var user;
 
 var loginVar = localStorage.getItem('loginVar');
 $(document).ready(function () {
-	/*
+	
 	if (loginVar == 1){
 		$('#login').hide();
 		$('#adminTab').show();
@@ -25,7 +25,7 @@ $(document).ready(function () {
 		$('#adminTab').hide();
 		$('#usersTab').hide();
 	}
-	*/
+	
 	$(document).on("click","#login",function(){
 		$('#loginModal').modal('show');
 		return false;
@@ -65,9 +65,9 @@ function login(){
 		user = findByEmail(emailToCheck);
 		console.log(user);
 		if(user != null){
-			var correctEmail = user.email;
-			var correctPassword = user.pass;
-			console.log(correctEmail+' '+correctPassword)
+			var correctEmail = user[0].email;
+			var correctPassword = user[0].pass;
+			console.log('email:'+correctEmail+' pass:'+correctPassword)
 			if(passwordToCheck == correctPassword){
 				//Temp login admin
 				loginVar = 1;

@@ -69,7 +69,8 @@ var renderDetails=function(item){
 	$('#description').val(item.description);
 	$('#category').val(item.category);
 	$('#stock').val(item.stock);
-	$('#price').val(item.price)
+	$('#price').val(item.price);
+	console.log("rendering "+item.id);
 }
 
 var formToJSON=function(){
@@ -137,8 +138,9 @@ var deleteItem = function(){
 function renderList(data){
 	list=data;
 	$.each(list, function(index, item){
-		$('#itemTable').append('<tr><td>'+item.name+'</td><td>'+item.catagory+
-		'</td><td>'+item.price+'</td><td>'+item.stock+'</td><td><a id="'+item.id+'" href="edit">Edit</td></tr>');
+		$('#itemTable').append('<tr><td>'+item.name+
+				'</td><td>'+item.price+'</td><td>'+item.category+
+				'</td><td>'+item.stock+'</td><td><a id="'+item.id+'" href="edit">Edit</td></tr>');
 	});
 	
 	$('#table_id').DataTable();

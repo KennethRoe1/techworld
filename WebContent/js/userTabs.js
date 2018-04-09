@@ -51,24 +51,24 @@ var findById2= function(id){
 	});
 }
 
-var renderDetails2=function(item){
-	$('#id').val(user.id);
-	$('#name').val(user.name);
-	$('#email').val(user.email);
-	$('#pass').val(user.pass);
-	$('address').val(user.address);
-	$('dob').val(user.dob);
-	$('role').val(user.role);
+var renderDetails2=function(user){
+	$('#user_id').val(user.id);
+	$('#user_name').val(user.name);
+	$('#user_email').val(user.email);
+	$('#user_pass').val(user.pass);
+	$('#user_address').val(user.address);
+	$('#user_dob').val(user.dob);
+	$('#user_role').val(user.role);
 }
 
 var formToJSON2=function(){
 	return JSON.stringify({
-		"name": $('#name').val(),
-		"email":$('#email').val(),
-		"pass":$('pass').val(),
-		"address": $('#address').val(),
-		"dob": $('#dob').val(),
-		"role": $('#role').val()
+		"name": $('#user_name').val(),
+		"email":$('#user_email').val(),
+		"pass":$('#user_pass').val(),
+		"address": $('#user_address').val(),
+		"dob": $('#user_dob').val(),
+		"role": $('#user_role').val()
 	});
 };
 

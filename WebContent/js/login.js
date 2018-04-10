@@ -55,7 +55,7 @@ $(document).ready(function () {
 	
 	$(document).on('click','#loginBtn', function(){
 		console.log("login pressed");
-		login();
+		login($("#email").val(), $("#pass").val());
 		return false;
 	});
 	
@@ -78,10 +78,12 @@ function logout(){
 	localStorage.setItem('loginVar', 0);
 	window.location.reload(true);
 };
+function clearLogin(){
+	$('#email').val('');
+	$('#pass').val('');
+};
 
-function login(){
-	var emailToCheck=$("#email").val();
-	var passwordToCheck=$("#pass").val();
+function login(emailToCheck, passwordToCheck){
 	if (!emailToCheck || !passwordToCheck){
 		$('#loginError').slideDown().html('<span id="error">You must enter a username and password</span>');	
 	}
@@ -109,20 +111,20 @@ function login(){
 	}
 	return false;
 };
-
+//register needs work, getting error 405 method not allowed 
 var formToJSON2B=function(){
 	return JSON.stringify({
 		"name": $('#nName').val(),
 		"email":$('#nEmail').val(),
 		"pass":$('#nPass').val(),
 		"address": $('#nAddress').val(),
-		"dob": $('#nDdob').val(),
-		"role": "user"
+		"dob": $('#nDob').val(),
+		"role": $('user')
 	});
 };
 
 var register = function(){
-	console.log('add User');
+	console.log('register');
 	$.ajax({
 		type: 'POST',
 		contentType: 'application/json',
@@ -132,9 +134,10 @@ var register = function(){
 		success: function(data, textStatus, jqXHR){
 			alert('User created successfully');
 			$('#userId').val(data.id);
+			//login(data.email, data.pass);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
-			alert('add Usererror: '+textStatus);
+			alert('add User error: '+textStatus);
 		}
 	});
 };

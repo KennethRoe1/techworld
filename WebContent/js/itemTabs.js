@@ -15,7 +15,7 @@ $(document).on("click", '#btnAdd', function(){
 	newItem();
 });
 $(document).on("click", '#create', function(){
-	if($('#id').val()=='')
+	if($('#itemId').val()=='')
 		addItem();
 	else
 		updateItem();
@@ -37,7 +37,7 @@ var findAll = function() {
 
 var newItem = function(){
 	$('#pic').attr('src', '');
-	$('#id').val("");
+	$('#itemId').val("");
 	$('#name').val("");
 	$('#description').val("");
 	$('#category').val("");
@@ -63,8 +63,8 @@ var findById= function(id){
 }
 
 var renderDetails=function(item){
+	$('#itemId').val(item.id);
 	$('#pic').attr('src', 'pics/'+item.pic);
-	$('#id').val(item.id);
 	$('#name').val(item.name);
 	$('#description').val(item.description);
 	$('#category').val(item.category);
@@ -73,12 +73,24 @@ var renderDetails=function(item){
 	console.log("rendering "+item.id);
 }
 
-var formToJSON=function(){
+var formToJSONA=function(){
 	return JSON.stringify({
-		"pic": "",
+		"pic": '',//$('#pic').val
 		"name": $('#name').val(),
 		"description":$('#description').val(),
-		"category":$('category').val(),
+		"category":$('#category').val(),
+		"stock": $('#stock').val(),
+		"price": $('#price').val()
+	});
+};
+
+var formToJSONU=function(){
+	return JSON.stringify({
+		"id": $('#itemId').val(),
+		"pic": '',//$('#pic').val
+		"name": $('#name').val(),
+		"description":$('#description').val(),
+		"category":$('#category').val(),
 		"stock": $('#stock').val(),
 		"price": $('#price').val()
 	});
@@ -91,10 +103,10 @@ var addItem = function(){
 		contentType: 'application/json',
 		url: rootURL,
 		dataType: "json",
-		data: formToJSON(),
+		data: formToJSONA(),
 		success: function(data, textStatus, jqXHR){
 			alert('Item created successfully');
-			$('#id').val(data.id);
+			$('#itemId').val(data.id);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			alert('addItem error: '+textStatus);
@@ -103,13 +115,13 @@ var addItem = function(){
 };
 
 var updateItem = function(){
-	console.log('updateItem '+$('#id').val());
+	console.log('updateItem '+$('#itemId').val());
 	$.ajax({
 		type: 'PUT',
 		contentType: 'application/json',
-		url: rootURL+'/'+$('#id').val(),
+		url: rootURL+'/'+$('#itemId').val(),
 		dataType: "json",
-		data: formToJSON(),
+		data: formToJSONU(),
 		success: function(data, textStatus, jqXHR){
 			alert('Item updated successfully');
 			console.log(data);
@@ -124,7 +136,7 @@ var deleteItem = function(){
 	console.log('deleteItem');
 	$.ajax({
 		type: 'DELETE',
-		url: rootURL+'/'+$('#id').val(),
+		url: rootURL+'/'+$('#itemId').val(),
 		success: function(data, textStatus, jqXHR){
 			alert('Item deleted successfully');
 			newItem();

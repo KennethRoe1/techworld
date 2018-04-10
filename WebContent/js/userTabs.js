@@ -26,7 +26,7 @@ $(document).on("click", '#btnAdd2', function(){
 });
 $(document).on("click", '#create2', function(){
 	if($('#id').val()=='')
-		addItem();
+		addUser();
 	else
 		updateUser();
 	return false;
@@ -63,6 +63,7 @@ var renderDetails2=function(user){
 
 var formToJSON2=function(){
 	return JSON.stringify({
+		"id":$('').val('#user_id'),
 		"name": $('#user_name').val(),
 		"email":$('#user_email').val(),
 		"pass":$('#user_pass').val(),

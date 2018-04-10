@@ -62,15 +62,14 @@ public class ItemDAO {
   		PreparedStatement ps = null;
   		try {
   			c= ConnectionHelper.getConnection();
-  			ps = c.prepareStatement("insert into items(item_id,item_name,item_description,category,item_price,stock_count,pic) values(?,?,?,?,?,?,?)",
+  			ps = c.prepareStatement("insert into items(item_name,item_description,category,item_price,stock_count,pic) values(?,?,?,?,?,?)",
   					new String[] {"ID"});
-  			ps.setInt(1, item.getId());
-  			ps.setString(2, item.getName());
-  			ps.setString(3, item.getDescription());
-  			ps.setString(4, item.getCategory());
-  			ps.setDouble(5, item.getPrice());
-  			ps.setInt(6, item.getStock());
-  			ps.setString(7, item.getPic());
+  			ps.setString(1, item.getName());
+  			ps.setString(2, item.getDescription());
+  			ps.setString(3, item.getCategory());
+  			ps.setDouble(4, item.getPrice());
+  			ps.setInt(5, item.getStock());
+  			ps.setString(6, item.getPic());
   			ps.executeUpdate();
   			ResultSet rs = ps.getGeneratedKeys();
   			rs.next();
@@ -88,12 +87,12 @@ public class ItemDAO {
   		Connection c = null;
   		try {
   			c=ConnectionHelper.getConnection();
-  			PreparedStatement ps = c.prepareStatement("update items set item_name=?,item_description=?,category=?,price=?,stock_count=?,pic=? where item_id=?");
+  			PreparedStatement ps = c.prepareStatement("update items set item_name=?,item_description=?,category=?,item_price=?,stock_count=?,pic=? where item_id=?");
   			ps.setString(1, item.getName());
   			ps.setString(2, item.getDescription());
   			ps.setString(3, item.getCategory());
-  			ps.setInt(4, item.getStock());
-  			ps.setDouble(5, item.getPrice());
+  			ps.setDouble(4, item.getPrice());
+  			ps.setInt(5, item.getStock());
   			ps.setString(6, item.getPic());
   			ps.setInt(7, item.getId());
   			ps.executeUpdate();

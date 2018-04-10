@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	findAll2();
-	$('#delete2').hide()
 });
 var userURL = "http://localhost:8080/TechWorld/rest/users";
 var currentUser;
@@ -49,7 +48,18 @@ var findById2= function(id){
 			renderDetails2(currentUser);
 		}
 	});
-}
+};
+
+var newUser = function(){
+	$('#user_id').val('');
+	$('#user_name').val('');
+	$('#user_email').val('');
+	$('#user_pass').val('');
+	$('#user_address').val('');
+	$('#user_dob').val('');
+	$('#user_role').val('');
+	$('#delete2').hide();
+};
 
 var renderDetails2=function(user){
 	$('#user_id').val(user.id);
@@ -59,9 +69,20 @@ var renderDetails2=function(user){
 	$('#user_address').val(user.address);
 	$('#user_dob').val(user.dob);
 	$('#user_role').val(user.role);
-}
+};
 
-var formToJSON2=function(){
+var formToJSON2A=function(){
+	return JSON.stringify({
+		"name": $('#user_name').val(),
+		"email":$('#user_email').val(),
+		"pass":$('#user_pass').val(),
+		"address": $('#user_address').val(),
+		"dob": $('#user_dob').val(),
+		"role": $('#user_role').val()
+	});
+};
+
+var formToJSON2U=function(){
 	return JSON.stringify({
 		"id":$('').val('#user_id'),
 		"name": $('#user_name').val(),
@@ -80,4 +101,55 @@ function renderList2(data){
 		'</td><td>'+user.address+'</td><td>'+user.dob+'</td><td><a id="'+user.id+'" href="edit">Edit</td></tr>');
 	});
 	$('#table_id2').DataTable();
+};
+
+var addIUser = function(){
+	console.log('addItem');
+	$.ajax({
+		type: 'POST',
+		contentType: 'application/json',
+		url: userURL,
+		dataType: "json",
+		data: formToJSON2A(),
+		success: function(data, textStatus, jqXHR){
+			alert('User created successfully');
+			$('#userId').val(data.id);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('add Usererror: '+textStatus);
+		}
+	});
+};
+
+var updateUser = function(){
+	console.log('updateItem '+$('#itemId').val());
+	$.ajax({
+		type: 'PUT',
+		contentType: 'application/json',
+		url: rootURL+'/'+$('#userId').val(),
+		dataType: "json",
+		data: formToJSON2U(),
+		success: function(data, textStatus, jqXHR){
+			alert('User updated successfully');
+			console.log(data);
+		},
+		error: function(jqHXR, textStatus, errorThrown){
+			alert('update User error: '+textStatus);
+		}
+	});
+};
+
+var deleteUser = function(){
+	console.log('deleteItem');
+	$.ajax({
+		type: 'DELETE',
+		url: rootURL+'/'+$('#userId').val(),
+		success: function(data, textStatus, jqXHR){
+			alert('User deleted successfully');
+			newUser();
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('delete User error: '+textStatus);
+		}
+	});
 };

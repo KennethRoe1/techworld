@@ -60,7 +60,7 @@ var findById= function(id){
 			renderDetails(currentItem);
 		}
 	});
-}
+};
 
 var renderDetails=function(item){
 	$('#itemId').val(item.id);
@@ -71,7 +71,7 @@ var renderDetails=function(item){
 	$('#stock').val(item.stock);
 	$('#price').val(item.price);
 	console.log("rendering "+item.id);
-}
+};
 
 var formToJSONA=function(){
 	return JSON.stringify({

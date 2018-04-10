@@ -21,7 +21,7 @@
 <a id="login" href="login">Login</a>
 <a id="account" href="user.html">Account</a>
 <button id="logout">Logout</button>
-<a href="basket"><i class="fa fa-shopping-cart"></i></a>
+<a href="basket" id="basket"><i class="fa fa-shopping-cart"></i></a>
 <h2>TechWorld</h2>
 </div>
 <div class="modal fade" id="loginModal" role="dialog">
@@ -32,6 +32,23 @@
 			<label>Password</label><input type="text" id="pass">
 			<p id="loginError"></p>
 			<button id="loginBtn">Login</button>
+			<p><a id="reg" href="reg">Register</a> Here</p>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="regModal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header"></div>
+			<label>Name</label><input id="nName" type="text" name="name">
+			<label>Address</label><input id="nAddress" type="text" name="address">
+			<label>Date of Birth</label><input id="nDob" type="date" name="dob">
+			<label>E-mail</label><input id="nEmail" type="text" name="email">
+			<label>Password</label><input id="nPass" type="text" name="pass">
+			<button id="regBtn">Register</button>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>

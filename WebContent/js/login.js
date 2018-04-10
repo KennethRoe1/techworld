@@ -12,11 +12,12 @@ $(document).ready(function () {
 		$('#adminTab').show();
 		$('#usersTab').show();
 		$('#logout').show();
+		$('#basket').hide();
 	}
 	else if (loginVar == 2){
 		$('#account').show();
 		$('#logout').show();
-		$('#addBasket').show();
+		$('#basket').show();
 		$('#login').hide();
 		$('#adminTab').hide();
 		$('#usersTab').hide();
@@ -28,7 +29,7 @@ $(document).ready(function () {
 		$('#logout').hide();
 		$('#adminTab').hide();
 		$('#usersTab').hide();
-		$('#addBasket').hide();
+		$('#basket').hide();
 	
 	}
 	else{
@@ -38,6 +39,7 @@ $(document).ready(function () {
 		$('#adminTab').hide();
 		$('#usersTab').hide();
 		$('#addBasket').hide();
+		$('#basket').hide();
 	}
 	
 	$(document).on("click","#login",function(){
@@ -45,9 +47,21 @@ $(document).ready(function () {
 		return false;
 	});
 	
+	$(document).on("click","#reg",function(){
+		$('#loginModal').modal('hide');
+		$('#regModal').modal('show');
+		return false;
+	});
+	
 	$(document).on('click','#loginBtn', function(){
 		console.log("login pressed");
 		login();
+		return false;
+	});
+	
+	$(document).on('click','#regBtn', function(){
+		console.log("register pressed");
+		register();
 		return false;
 	});
 	
@@ -63,10 +77,6 @@ function logout(){
 	loginVar = 0;
 	localStorage.setItem('loginVar', 0);
 	window.location.reload(true);
-};
-function clearLogin(){
-	$('#email').val('');
-	$('#pass').val('');
 };
 
 function login(){
@@ -98,6 +108,35 @@ function login(){
 		}
 	}
 	return false;
+};
+
+var formToJSON2B=function(){
+	return JSON.stringify({
+		"name": $('#nName').val(),
+		"email":$('#nEmail').val(),
+		"pass":$('#nPass').val(),
+		"address": $('#nAddress').val(),
+		"dob": $('#nDdob').val(),
+		"role": "user"
+	});
+};
+
+var register = function(){
+	console.log('add User');
+	$.ajax({
+		type: 'POST',
+		contentType: 'application/json',
+		url: userURL,
+		dataType: "json",
+		data: formToJSON2B(),
+		success: function(data, textStatus, jqXHR){
+			alert('User created successfully');
+			$('#userId').val(data.id);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('add Usererror: '+textStatus);
+		}
+	});
 };
 	
 var  findByEmail= function(email) {

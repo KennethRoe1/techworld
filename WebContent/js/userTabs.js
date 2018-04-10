@@ -103,8 +103,8 @@ function renderList2(data){
 	$('#table_id2').DataTable();
 };
 
-var addIUser = function(){
-	console.log('addItem');
+var addUser = function(){
+	console.log('add User');
 	$.ajax({
 		type: 'POST',
 		contentType: 'application/json',
@@ -122,7 +122,7 @@ var addIUser = function(){
 };
 
 var updateUser = function(){
-	console.log('updateItem '+$('#itemId').val());
+	console.log('update User '+$('#userId').val());
 	$.ajax({
 		type: 'PUT',
 		contentType: 'application/json',
@@ -140,7 +140,7 @@ var updateUser = function(){
 };
 
 var deleteUser = function(){
-	console.log('deleteItem');
+	console.log('delete User');
 	$.ajax({
 		type: 'DELETE',
 		url: rootURL+'/'+$('#userId').val(),

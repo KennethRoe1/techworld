@@ -24,7 +24,7 @@ $(document).on("click", '#btnAdd2', function(){
 	newUser();
 });
 $(document).on("click", '#create2', function(){
-	if($('#id').val()=='')
+	if($('#user_id').val()=='')
 		addUser();
 	else
 		updateUser();
@@ -71,7 +71,7 @@ var renderDetails2=function(user){
 	$('#user_role').val(user.role);
 };
 
-var formToJSON2A=function(){
+var formToJSONB=function(){
 	return JSON.stringify({
 		"name": $('#user_name').val(),
 		"email":$('#user_email').val(),
@@ -82,10 +82,10 @@ var formToJSON2A=function(){
 	});
 };
 
-var formToJSON2U=function(){
+var formToJSONV=function(){
 	return JSON.stringify({
-		"id":$('').val('#user_id'),
-		"name": $('#user_name').val(),
+		"id":$('#user_id').val(),
+		"name":$('#user_name').val(),
 		"email":$('#user_email').val(),
 		"pass":$('#user_pass').val(),
 		"address": $('#user_address').val(),
@@ -110,13 +110,14 @@ var addUser = function(){
 		contentType: 'application/json',
 		url: userURL,
 		dataType: "json",
-		data: formToJSON2A(),
+		data: formToJSONB(),
 		success: function(data, textStatus, jqXHR){
 			alert('User created successfully');
 			$('#userId').val(data.id);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			alert('add Usererror: '+textStatus);
+			console.log(data);
 		}
 	});
 };
@@ -128,13 +129,13 @@ var updateUser = function(){
 		contentType: 'application/json',
 		url: rootURL+'/'+$('#userId').val(),
 		dataType: "json",
-		data: formToJSON2U(),
+		data: formToJSONV(),
 		success: function(data, textStatus, jqXHR){
 			alert('User updated successfully');
-			console.log(data);
 		},
 		error: function(jqHXR, textStatus, errorThrown){
 			alert('update User error: '+textStatus);
+			console.log(data);
 		}
 	});
 };

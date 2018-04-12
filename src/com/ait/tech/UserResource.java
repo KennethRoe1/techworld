@@ -38,4 +38,29 @@ public class UserResource {
 		return dao.findByEmail(email);
 	}
 	
+	//create
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public User create(User user) {
+		System.out.println("new user");
+		return dao.create(user);
+	}
+	//update
+	@PUT @Path("{id}")
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public User update(User user) {
+		System.out.println("Updating User: "+user.getId());
+		dao.update(user);
+		return user;
+	}
+	//delete
+	@DELETE @Path("{id}")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public boolean remove(@PathParam("id") int id) {
+		System.out.println("Removing User "+id);
+		return dao.remove(id);
+	}
+	
 }

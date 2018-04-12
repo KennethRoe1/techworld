@@ -82,15 +82,14 @@ public class UserDAO {
 	  		PreparedStatement ps = null;
 	  		try {
 	  			c= ConnectionHelper.getConnection();
-	  			ps = c.prepareStatement("insert into users(user_id,user_email,user_name,user_address,user_dob,role) values(?,?,?,?,?,?,?)",
+	  			ps = c.prepareStatement("insert into users(user_email,user_name,user_pass,user_address,user_dob,role) values(?,?,?,?,?,?)",
 	  					new String[] {"ID"});
-	  			ps.setInt(1, user.getId());
-	  			ps.setString(2, user.getEmail());
-	  			ps.setString(3, user.getName());
-	  			ps.setString(4, user.getPass());
-	  			ps.setString(5, user.getAddress());
-	  			ps.setDate(6, user.getDob());
-	  			ps.setString(7, user.getRole());
+	  			ps.setString(1, user.getEmail());
+	  			ps.setString(2, user.getName());
+	  			ps.setString(3, user.getPass());
+	  			ps.setString(4, user.getAddress());
+	  			ps.setDate(5, user.getDob());
+	  			ps.setString(6, user.getRole());
 	  			ps.executeUpdate();
 	  			ResultSet rs = ps.getGeneratedKeys();
 	  			rs.next();
@@ -108,7 +107,7 @@ public class UserDAO {
 	  		Connection c = null;
 	  		try {
 	  			c=ConnectionHelper.getConnection();
-	  			PreparedStatement ps = c.prepareStatement("update users set user_email=?,user_name=?, where user_id=?");
+	  			PreparedStatement ps = c.prepareStatement("update users set user_email=?,user_name=?,user_pass=?,user_address=?,user_dob=?,role=? where user_id=?");
 	  			ps.setString(1, user.getEmail());
 	  			ps.setString(2, user.getName());
 	  			ps.setString(3, user.getPass());

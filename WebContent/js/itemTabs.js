@@ -107,6 +107,7 @@ var addItem = function(){
 		success: function(data, textStatus, jqXHR){
 			alert('Item created successfully');
 			$('#itemId').val(data.id);
+			console.log(data);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			alert('addItem error: '+textStatus);

@@ -123,11 +123,11 @@ var addUser = function(){
 };
 
 var updateUser = function(){
-	console.log('update User '+$('#userId').val());
+	console.log('update User '+$('#user_id').val());
 	$.ajax({
 		type: 'PUT',
 		contentType: 'application/json',
-		url: rootURL+'/'+$('#userId').val(),
+		url: userURL+'/'+$('#user_id').val(),
 		dataType: "json",
 		data: formToJSONV(),
 		success: function(data, textStatus, jqXHR){
@@ -144,7 +144,7 @@ var deleteUser = function(){
 	console.log('delete User');
 	$.ajax({
 		type: 'DELETE',
-		url: rootURL+'/'+$('#userId').val(),
+		url: userURL+'/'+$('#user_id').val(),
 		success: function(data, textStatus, jqXHR){
 			alert('User deleted successfully');
 			newUser();

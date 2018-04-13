@@ -112,7 +112,7 @@ function login(emailToCheck, passwordToCheck){
 	return false;
 };
 //register needs work, getting error 405 method not allowed 
-/*
+
 var formToJSON2B=function(){
 	return JSON.stringify({
 		"name": $('#nName').val(),
@@ -142,7 +142,7 @@ var register = function(){
 		}
 	});
 };
-*/
+
 var  findByEmail= function(email) {
 	var userData;
 	console.log('findByEmail: ' + email);

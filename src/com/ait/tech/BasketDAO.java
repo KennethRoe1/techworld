@@ -14,7 +14,7 @@ public class BasketDAO {
 		public List<Basket> findAll() {
 	        List<Basket> list = new ArrayList<Basket>();
 	        Connection c = null;
-	    	String sql = "SELECT * FROM basket ORDER BY id";
+	    	String sql = "SELECT * FROM basket ORDER BY basket_id";
 	        try {
 	            c = ConnectionHelper.getConnection();
 	            Statement s = c.createStatement();
@@ -33,7 +33,7 @@ public class BasketDAO {
 		
 	    //find by id
 	    public Basket findById(int id) {
-	    	String sql = "select * from basket where id = ?";
+	    	String sql = "select * from basket where basket_id = ?";
 	    	Basket basket = null;
 	    	Connection c =null;
 	    	try {
@@ -57,7 +57,7 @@ public class BasketDAO {
 	    
 	  //find by userId
 	    public Basket findByUserId(int id) {
-	    	String sql = "select * from basket where userId = ?";
+	    	String sql = "select * from basket where user_id = ?";
 	    	Basket basket = null;
 	    	Connection c =null;
 	    	try {
@@ -85,7 +85,7 @@ public class BasketDAO {
 	  		PreparedStatement ps = null;
 	  		try {
 	  			c= ConnectionHelper.getConnection();
-	  			ps = c.prepareStatement("insert into items(userId) values(?)",
+	  			ps = c.prepareStatement("insert into items(user_id) values(?)",
 	  					new String[] {"ID"});
 	  			ps.setInt(1, basket.getUserId());
 	  			ps.executeUpdate();
@@ -105,7 +105,7 @@ public class BasketDAO {
 	  		Connection c = null;
 	  		try {
 	  			c=ConnectionHelper.getConnection();
-	  			PreparedStatement ps = c.prepareStatement("update basket set ,userId=? where id=?");
+	  			PreparedStatement ps = c.prepareStatement("update basket set ,user_id=? where basket_id=?");
 	  			ps.setInt(1, basket.getUserId());
 	  			ps.setInt(2, basket.getId());
 	  			ps.executeUpdate();
@@ -122,7 +122,7 @@ public class BasketDAO {
 	  		Connection c = null;
 	  		try {
 	  			c = ConnectionHelper.getConnection();
-	  			PreparedStatement ps = c.prepareStatement("delete from basket where id=?");
+	  			PreparedStatement ps = c.prepareStatement("delete from basket where basket_id=?");
 	  			ps.setInt(1,id);
 	  			int count = ps.executeUpdate();
 	  			return count==1;

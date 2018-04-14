@@ -36,7 +36,7 @@ function renderList3(data){
 				'<td>'+basket.id+'</td>'+
 				'<td>'+basket.userId+'</td>'+
 				'<td>'+basket.itemId+'</td>'+
-				'<td>'+basket.quantity+'</td>'+
+				'<td>'+basket.itemQuantity+'</td>'+
 				'<td><a id="'+basket.id+'" href="remove">Remove</td>'+
 				'</tr>');
 	});

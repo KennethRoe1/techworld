@@ -17,19 +17,29 @@ import javax.ws.rs.core.MediaType;
 public class BasketResource {
 	
 BasketDAO dao = new BasketDAO();
-	
+	//find all
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<Basket> findAll() {
 		System.out.println("findAll");
 		return dao.findAll();
 	}
+	//find by id
 	@GET @Path("{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Basket findById(@PathParam("id") String id) {
 		System.out.println("findById "+id);
 		return dao.findById(Integer.parseInt(id));
 	}
+	//find by user_id
+	@GET @Path("/query")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public List<Basket> findByUserId(
+			@QueryParam("userId")String userId){
+		System.out.println("findByUserId: "+userId);
+		return dao.findByUserId(Integer.parseInt(userId));
+	}
+	
 	//create
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

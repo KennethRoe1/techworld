@@ -4,6 +4,7 @@ var ADMIN ="admin";
 var CUSTOMER = "user";
 
 var loginVar = localStorage.getItem('loginVar');
+var userVar = localStorage.getItem('userVar');
 $(document).ready(function () {
 	console.log(loginVar);
 	if (loginVar == 1){
@@ -12,12 +13,12 @@ $(document).ready(function () {
 		$('#adminTab').show();
 		$('#usersTab').show();
 		$('#logout').show();
-		$('#basket').hide();
+		$('#basketTab').hide();
 	}
 	else if (loginVar == 2){
 		$('#account').show();
 		$('#logout').show();
-		$('#basket').show();
+		$('#basketTab').show();
 		$('#login').hide();
 		$('#adminTab').hide();
 		$('#usersTab').hide();
@@ -29,7 +30,8 @@ $(document).ready(function () {
 		$('#logout').hide();
 		$('#adminTab').hide();
 		$('#usersTab').hide();
-		$('#basket').hide();
+		$('#basketTab').hide();
+		userVar = 0;
 	
 	}
 	else{
@@ -39,7 +41,8 @@ $(document).ready(function () {
 		$('#adminTab').hide();
 		$('#usersTab').hide();
 		$('#addBasket').hide();
-		$('#basket').hide();
+		$('#basketTab').hide();
+		userVar = 0;
 	}
 	
 	$(document).on("click","#login",function(){
@@ -75,7 +78,9 @@ $(document).ready(function () {
 function logout(){
 	clearLogin();
 	loginVar = 0;
+	userVar = 0;
 	localStorage.setItem('loginVar', 0);
+	localStorage.setItem('userVar', 0);
 	window.location.reload(true);
 };
 function clearLogin(){
@@ -95,6 +100,7 @@ function login(emailToCheck, passwordToCheck){
 			var correctPassword = user[0].pass;
 			console.log('email:'+correctEmail+' pass:'+correctPassword)
 			if(passwordToCheck == correctPassword){
+				userVar=user[0].id;
 				userTypeLogin(user[0].role);
 			}else{
 				$('#pass').val('');
@@ -135,7 +141,7 @@ var register = function(){
 		success: function(data, textStatus, jqXHR){
 			alert('User created successfully');
 			$('#userId').val(data.id);
-			//login(data.email, data.pass);
+			login(data.email, data.pass);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			alert('add User error: '+textStatus);

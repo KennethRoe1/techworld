@@ -14,7 +14,7 @@ public class BasketDAO {
 		public List<Basket> findAll() {
 	        List<Basket> list = new ArrayList<Basket>();
 	        Connection c = null;
-	    	String sql = "SELECT * FROM basket ORDER BY basket_id";
+	    	String sql = "SELECT * FROM basket ORDER BY instant_id";
 	        try {
 	            c = ConnectionHelper.getConnection();
 	            Statement s = c.createStatement();
@@ -33,7 +33,7 @@ public class BasketDAO {
 		
 	    //find by id
 	    public Basket findById(int id) {
-	    	String sql = "select * from basket where basket_id = ?";
+	    	String sql = "select * from basket where instant_id = ?";
 	    	Basket basket = null;
 	    	Connection c =null;
 	    	try {
@@ -56,27 +56,25 @@ public class BasketDAO {
 	    }
 	    
 	  //find by userId
-	    public Basket findByUserId(int id) {
-	    	String sql = "select * from basket where user_id = ?";
-	    	Basket basket = null;
-	    	Connection c =null;
+	    public List<Basket> findByUserId(int userId){
+	    	List<Basket> list = new ArrayList<Basket>();
+	    	Connection c = null;
+	    	String sql = "select * from basket as e where user_id = ? order by instant_id";
 	    	try {
-	    		c = ConnectionHelper.getConnection();
+	    		c=ConnectionHelper.getConnection();
 	    		PreparedStatement ps = c.prepareStatement(sql);
-	    		ps.setInt(1, id);
+	    		ps.setInt(1, userId);
 	    		ResultSet rs = ps.executeQuery();
-	    		if(rs.next()) {
-	    			basket=processRow(rs);
+	    		while(rs.next()) {
+	    			list.add(processRow(rs));
 	    		}
-	    	}
-	    	catch(Exception e) {
+	    	}catch(SQLException e) {
 	    		e.printStackTrace();
 	    		throw new RuntimeException(e);
-	    	}
-	    	finally {
+	    	}finally {
 	    		ConnectionHelper.close(c);
 	    	}
-	    	return basket;
+	    	return list;
 	    }
 	    
 		//create
@@ -85,7 +83,7 @@ public class BasketDAO {
 	  		PreparedStatement ps = null;
 	  		try {
 	  			c= ConnectionHelper.getConnection();
-	  			ps = c.prepareStatement("insert into items(user_id) values(?)",
+	  			ps = c.prepareStatement("insert into items(user_id,item_id,itme_quantity) values(?,?,?)",
 	  					new String[] {"ID"});
 	  			ps.setInt(1, basket.getUserId());
 	  			ps.executeUpdate();
@@ -105,9 +103,11 @@ public class BasketDAO {
 	  		Connection c = null;
 	  		try {
 	  			c=ConnectionHelper.getConnection();
-	  			PreparedStatement ps = c.prepareStatement("update basket set ,user_id=? where basket_id=?");
+	  			PreparedStatement ps = c.prepareStatement("update basket set ,user_id=?, item_id=?, item_quantity=? where instant_id=?");
 	  			ps.setInt(1, basket.getUserId());
-	  			ps.setInt(2, basket.getId());
+	  			ps.setInt(2, basket.getItemId());
+	  			ps.setInt(3,  basket.getItemQuantity());
+	  			ps.setInt(4, basket.getId());
 	  			ps.executeUpdate();
 	  		}catch(SQLException e){
 	  			e.printStackTrace();
@@ -122,7 +122,7 @@ public class BasketDAO {
 	  		Connection c = null;
 	  		try {
 	  			c = ConnectionHelper.getConnection();
-	  			PreparedStatement ps = c.prepareStatement("delete from basket where basket_id=?");
+	  			PreparedStatement ps = c.prepareStatement("delete from basket where instant_id=?");
 	  			ps.setInt(1,id);
 	  			int count = ps.executeUpdate();
 	  			return count==1;
@@ -137,8 +137,10 @@ public class BasketDAO {
 	  	// process row
 	    protected Basket processRow(ResultSet rs) throws SQLException {
 	    	Basket basket = new Basket();
-	    	basket.setId(rs.getInt("id"));
-	    	basket.setId(rs.getInt("userId"));
+	    	basket.setId(rs.getInt("instant_id"));
+	    	basket.setUserId(rs.getInt("user_id"));
+	    	basket.setItemId(rs.getInt("item_id"));
+	    	basket.setItemQuantity(rs.getInt("item_quantity"));
 	        return basket;
 	    }
 	  	

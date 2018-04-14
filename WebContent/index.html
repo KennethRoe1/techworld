@@ -10,6 +10,7 @@
 <script src="js/itemTabs.js"></script>
 <script src="js/userTabs.js"></script>
 <script src="js/login.js"></script>
+<script src="js/basket.js"></script>
 <link rel="stylesheet" href="css/bootstrapV4.css"/>
 <link rel="stylesheet" href="css/font-awesome.css"/>
 <link rel="stylesheet" href="css/jquery.dataTables.css"/>
@@ -21,7 +22,6 @@
 <a id="login" href="login">Login</a>
 <a id="account" href="user.html">Account</a>
 <button id="logout">Logout</button>
-<a href="basket" id="basket"><i class="fa fa-shopping-cart"></i></a>
 <h2>TechWorld</h2>
 </div>
 <div class="modal fade" id="loginModal" role="dialog">
@@ -68,6 +68,9 @@
     </li>
     <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#users" role="tab" id="usersTab"><span class="fa fa-user-circle fa-lg"></span>User Management</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#basket" role="tab" id="basketTab"><span class="fa fa-shopping-cart fa-lg"></span>Basket</a>
     </li>
     
 </ul>
@@ -167,6 +170,16 @@
    		</div>
 	</div>
 </div>
+
+	<div class="tab-pane" id="basket">
+        <table id="table_id3">
+            	<thead>
+            		<tr><th>Instant ID</th><th>Item ID</th><th>Quantoty</th><th>Edit</th></tr>
+            	</thead>
+            	<tbody id="basketTable">
+            	</tbody>
+            </table>
+		</div>
     </div>
     </section>
 </body>

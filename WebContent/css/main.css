@@ -11,15 +11,15 @@ input {
     width: 15em;
     margin-left: 1em;
     margin-bottom: .5em;}
-	
+
 input:focus {
     border: 2px solid navy; }
-	
+
 #button, #reset {
     width: 7em;
-    box-shadow: 2px 2px 0 navy; 
+    box-shadow: 2px 2px 0 navy;
     background-color: silver; }
-	
+
 #button { margin-left: 9.5em; }
 
 textarea{
@@ -28,10 +28,10 @@ textarea{
 	font-family: Arial, Helvetica, sans-serif;
 	margin-left: 1em;
 	margin-bottom: .5em;}
-	
+
 textarea:focus{
 	border:2px solid navy;}
-	
+
 fieldset {
 	margin-top: 1em;
 	margin-bottom: 1 em;
@@ -45,3 +45,6 @@ legend {
 	margin-bottom: .5em;
 }
 
+h1 { color: #ffa31a; font-family: 'Helvetica Neue', sans-serif; font-size: 84px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
+h2 { color: #fff; font-family: 'Open Sans', sans-serif; font-size: 24px; font-weight: 300; line-height: 32px; margin: 0 0 72px; text-align: center; }
+p { color: #685206; font-family: 'Helvetica Neue', sans-serif; font-size: 14px; line-height: 24px; margin: 0 0 24px; text-align: justify; text-justify: inter-word; }

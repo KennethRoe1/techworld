@@ -59,7 +59,7 @@ public class BasketDAO {
 	    public List<Basket> findByUserId(int userId){
 	    	List<Basket> list = new ArrayList<Basket>();
 	    	Connection c = null;
-	    	String sql = "select * from basket as e where user_id = ? order by instant_id";
+	    	String sql = "select * from basket where user_id = ? order by instant_id";
 	    	try {
 	    		c=ConnectionHelper.getConnection();
 	    		PreparedStatement ps = c.prepareStatement(sql);

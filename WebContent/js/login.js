@@ -101,6 +101,7 @@ function login(emailToCheck, passwordToCheck){
 			console.log('email:'+correctEmail+' pass:'+correctPassword)
 			if(passwordToCheck == correctPassword){
 				userVar=user[0].id;
+				localStorage.setItem('userVar', user[0].id);
 				userTypeLogin(user[0].role);
 			}else{
 				$('#pass').val('');

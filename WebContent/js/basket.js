@@ -1,5 +1,6 @@
 $(document).ready(function(){
-	findAll3();
+	//findAll3();
+	findByUserId(userVar);
 });
 var basketURL = "http://localhost:8080/TechWorld/rest/basket";
 var currenBasket;
@@ -14,17 +15,21 @@ var findAll3 = function() {
 	});
 };
 
-var findById3= function(id){
-	console.log('findById '+id);
+var findByUserId= function(id){
+	console.log('findByUserId '+id);
 	$.ajax({
 		type: 'GET',
-		url: basketURL + '/'+id,
+		url: basketURL + '/query/?userId='+id,
 		dataType: "json",
-		success: function(data){
-			console.log('findById success: '+data.id);
+		success: renderList3
+			/*
+			function(data){
+			console.log('findByUserId success: '+data.id);
 			currentBasket = data;
-			//renderDetails3(currentBasket);
+			console.log(data);
+			success: renderList3
 		}
+		*/
 	});
 };
 

@@ -103,7 +103,27 @@ public class BasketDAO {
 	  		Connection c = null;
 	  		try {
 	  			c=ConnectionHelper.getConnection();
-	  			PreparedStatement ps = c.prepareStatement("update basket set ,user_id=?, item_id=?, item_quantity=? where instant_id=?");
+	  			PreparedStatement ps = c.prepareStatement("update basket set user_id=?, item_id=?, item_quantity=? where instant_id=?");
+	  			ps.setInt(1, basket.getUserId());
+	  			ps.setInt(2, basket.getItemId());
+	  			ps.setInt(3,  basket.getItemQuantity());
+	  			ps.setInt(4, basket.getId());
+	  			ps.executeUpdate();
+	  		}catch(SQLException e){
+	  			e.printStackTrace();
+	  			throw new RuntimeException(e);
+	  		}finally {
+	  			ConnectionHelper.close(c);
+	  		}
+	  		return basket;
+	  	}
+	  	
+	  //update Quantity
+	  	public Basket updateQuantity(Basket basket) {
+	  		Connection c = null;
+	  		try {
+	  			c=ConnectionHelper.getConnection();
+	  			PreparedStatement ps = c.prepareStatement("update basket set item_quantity=? where instant_id=?");
 	  			ps.setInt(1, basket.getUserId());
 	  			ps.setInt(2, basket.getItemId());
 	  			ps.setInt(3,  basket.getItemQuantity());

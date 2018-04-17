@@ -10,6 +10,12 @@ $(document).on("click", "#cardTable a",function(){
 	addToBasket(this.id);
 });
 
+$(document).on("click", "#basketTable a",function(){
+	event.preventDefault();
+	deleteInstance(this.id);
+});
+
+
 var findAll3 = function() {
 	console.log('findAll3');
 	$.ajax({
@@ -39,33 +45,41 @@ function renderList3(data){
 				'<td>'+basket.userId+'</td>'+
 				'<td>'+basket.itemId+'</td>'+
 				'<td><input type="text" id="quantity" value="'+basket.itemQuantity+'"><button>Update</button></td>'+
-				'<td><a id="'+basket.id+'" href="remove">Remove</td>'+
+				'<td><a id="'+basket.id+'" href="remove">X</td>'+
 				'</tr>');
 	});
-	$('#table_id3').DataTable();
+	//$('#table_id3').DataTable();
 }
 
-var addToBasket = function(){
+var addToBasket = function(id){
+	var itemId = id;
 	console.log('addToBasket');
 	$.ajax({
 		type: 'POST',
 		contentType: 'application/json',
 		url: basketURL,
 		dataType: "json",
-		data: formToJSONA(),
+		data: formToJSONI(itemId),
 		success: function(data, textStatus, jqXHR){
-			alert('Item created successfully');
-			$('#basketId').val(data.id);
+			alert('Item added successfully');
 			console.log(data);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
-			alert('addItem error: '+textStatus);
+			alert('addBasket error: '+textStatus);
 		}
 	});
 };
 
-var updateQuantity = function(){
-	console.log('updateItem '+$('#itemId').val());
+var formToJSONI=function(itemId){
+	return JSON.stringify({
+		"userId": userVar,
+		"itemId": itemId,
+		"itemQuantity":1
+	});
+};
+
+var updateQuantity = function(id){
+	console.log('updateing quantity of instance '+id);
 	$.ajax({
 		type: 'PUT',
 		contentType: 'application/json',
@@ -82,11 +96,11 @@ var updateQuantity = function(){
 	});
 };
 
-var deleteInstance = function(){
+var deleteInstance = function(id){
 	console.log('deleteItem');
 	$.ajax({
 		type: 'DELETE',
-		url: basketURL+'/'+$('#Id').val(),
+		url: basketURL+'/'+id,
 		success: function(data, textStatus, jqXHR){
 			alert('Item deleted successfully');
 			newItem();

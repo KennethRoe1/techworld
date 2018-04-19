@@ -83,9 +83,11 @@ public class BasketDAO {
 	  		PreparedStatement ps = null;
 	  		try {
 	  			c= ConnectionHelper.getConnection();
-	  			ps = c.prepareStatement("insert into items(user_id,item_id,itme_quantity) values(?,?,?)",
+	  			ps = c.prepareStatement("insert into basket(user_id,item_id,item_quantity) values(?,?,?)",
 	  					new String[] {"ID"});
 	  			ps.setInt(1, basket.getUserId());
+	  			ps.setInt(2,basket.getItemId());
+	  			ps.setInt(3, basket.getItemQuantity());
 	  			ps.executeUpdate();
 	  			ResultSet rs = ps.getGeneratedKeys();
 	  			rs.next();
@@ -124,10 +126,8 @@ public class BasketDAO {
 	  		try {
 	  			c=ConnectionHelper.getConnection();
 	  			PreparedStatement ps = c.prepareStatement("update basket set item_quantity=? where instant_id=?");
-	  			ps.setInt(1, basket.getUserId());
-	  			ps.setInt(2, basket.getItemId());
-	  			ps.setInt(3,  basket.getItemQuantity());
-	  			ps.setInt(4, basket.getId());
+	  			ps.setInt(1,  basket.getItemQuantity());
+	  			ps.setInt(2, basket.getId());
 	  			ps.executeUpdate();
 	  		}catch(SQLException e){
 	  			e.printStackTrace();

@@ -15,7 +15,6 @@ $(document).on("click", "#basketTable a",function(){
 	deleteInstance(this.id);
 });
 
-
 var findAll3 = function() {
 	console.log('findAll3');
 	$.ajax({
@@ -40,7 +39,7 @@ function renderList3(data){
 	list=data;
 	$.each(list, function(index, basket){
 		console.log(data);
-		$('#basketTable').append('<tr>'+
+		$('#basketTable').append('<tr class="theRows">'+
 				'<td>'+basket.id+'</td>'+
 				'<td>'+basket.userId+'</td>'+
 				'<td>'+basket.itemId+'</td>'+
@@ -48,7 +47,6 @@ function renderList3(data){
 				'<td><a id="'+basket.id+'" href="remove">X</td>'+
 				'</tr>');
 	});
-	//$('#table_id3').DataTable();
 }
 
 var addToBasket = function(id){
@@ -59,10 +57,13 @@ var addToBasket = function(id){
 		contentType: 'application/json',
 		url: basketURL,
 		dataType: "json",
-		data: formToJSONI(itemId),
+		data:formToJSONI(itemId),
 		success: function(data, textStatus, jqXHR){
 			alert('Item added successfully');
 			console.log(data);
+			$('.theRows').remove();
+			findByUserId(userVar);
+			
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			alert('addBasket error: '+textStatus);

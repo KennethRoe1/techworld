@@ -14,6 +14,7 @@ $(document).ready(function () {
 		$('#usersTab').show();
 		$('#logout').show();
 		$('#basketTab').hide();
+		$('#aBB').hide();
 	}
 	else if (loginVar == 2){
 		$('#account').show();
@@ -22,6 +23,7 @@ $(document).ready(function () {
 		$('#login').hide();
 		$('#adminTab').hide();
 		$('#usersTab').hide();
+		$('#aBB').show();
 	
 	}
 	else if (loginVar == 0){
@@ -31,6 +33,7 @@ $(document).ready(function () {
 		$('#adminTab').hide();
 		$('#usersTab').hide();
 		$('#basketTab').hide();
+		$('#aBB').hide();
 		userVar = 0;
 	
 	}
@@ -42,6 +45,7 @@ $(document).ready(function () {
 		$('#usersTab').hide();
 		$('#addBasket').hide();
 		$('#basketTab').hide();
+		$('#aBB').hide();
 		userVar = 0;
 	}
 	
@@ -101,6 +105,7 @@ function login(emailToCheck, passwordToCheck){
 			console.log('email:'+correctEmail+' pass:'+correctPassword)
 			if(passwordToCheck == correctPassword){
 				userVar=user[0].id;
+				localStorage.setItem('userVar', user[0].id);
 				userTypeLogin(user[0].role);
 			}else{
 				$('#pass').val('');

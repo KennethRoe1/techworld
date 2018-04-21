@@ -1,43 +1,128 @@
 $(document).ready(function(){
-	findAll3();
+	findByUserId(userVar);
 });
 var basketURL = "http://localhost:8080/TechWorld/rest/basket";
 var currenBasket;
+var anItem;
 
-var findAll3 = function() {
-	console.log('findAll3');
+// buttons
+$(document).on("click", "#cardTable a",function(){
+	event.preventDefault();
+	addToBasket(this.id);
+});
+
+$(document).on("click", "#basketTable a",function(){
+	event.preventDefault();
+	deleteInstance(this.id);
+});
+
+
+// Queries and displays
+var findByUserId= function(id){
+	//console.log('findByUserId '+id);
 	$.ajax({
 		type: 'GET',
-		url: basketURL,
-		dayaType:"json",
-		success: renderList3
+		url: basketURL + '/query/?userId='+id,
+		dataType: "json",
+		success: renderListB1
 	});
 };
 
-var findById3= function(id){
+var findItemById= function(id){
 	console.log('findById '+id);
 	$.ajax({
 		type: 'GET',
-		url: basketURL + '/'+id,
+		url: rootURL + '/'+id,
 		dataType: "json",
 		success: function(data){
-			console.log('findById success: '+data.id);
-			currentBasket = data;
-			//renderDetails3(currentBasket);
+			console.log('findById success: '+data.name);
+			anItem = data;
+			renderParts(anItem);
 		}
 	});
 };
 
-function renderList3(data){
+function renderListB1(data){
 	list=data;
 	$.each(list, function(index, basket){
-		console.log(data);
-		$('#basketTable').append('<tr>'+
-				'<td>'+basket.id+'</td>'+
-				'<td>'+basket.userId+'</td>'+
-				'<td>'+basket.itemId+'</td>'+
-				'<td>'+basket.itemQuantity+'</td>'+
-				'<td><a id="'+basket.id+'" href="remove">Remove</td>'+
+		//console.log(data);
+		$('#basketTable').append('<tr class="theRows">'+
+				'<td id="name'+basket.itemId+'"></td>'+
+				'<td id="Image'+basket.itemId+'">Image Here</td>'+
+				'<td id="price'+basket.itemId+'"></td>'+
+				'<td><input type="text" id="quantity" style="width: 30px" value="'+basket.itemQuantity+'"><button>Update</button></td>'+
+				'<td><a id="'+basket.id+'" href="remove">X</td>'+
 				'</tr>');
+		findItemById(basket.itemId);
 	});
 }
+
+var renderParts=function(item){
+	$('#name'+item.id).html(item.name);
+	$('#price'+item.id).html('$'+item.price);
+	console.log("rendering "+item.name);
+};
+
+// crud
+var addToBasket = function(id){
+	var itemId = id;
+	console.log('addToBasket');
+	$.ajax({
+		type: 'POST',
+		contentType: 'application/json',
+		url: basketURL,
+		dataType: "json",
+		data:formToJSONI(itemId),
+		success: function(data, textStatus, jqXHR){
+			alert('Item added successfully');
+			console.log(data);
+			$('.theRows').remove();
+			findByUserId(userVar);
+			
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('addBasket error: '+textStatus);
+		}
+	});
+};
+
+var formToJSONI=function(itemId){
+	return JSON.stringify({
+		"userId": userVar,
+		"itemId": itemId,
+		"itemQuantity":1
+	});
+};
+
+var updateQuantity = function(id){
+	console.log('updateing quantity of instance '+id);
+	$.ajax({
+		type: 'PUT',
+		contentType: 'application/json',
+		url: basketURL+'/'+$('#Id').val(),
+		dataType: "json",
+		data: formToJSONU(),
+		success: function(data, textStatus, jqXHR){
+			alert('Item updated successfully');
+			console.log(data);
+		},
+		error: function(jqHXR, textStatus, errorThrown){
+			alert('updateItem error: '+textStatus);
+		}
+	});
+};
+
+var deleteInstance = function(id){
+	console.log('deleteItem');
+	$.ajax({
+		type: 'DELETE',
+		url: basketURL+'/'+id,
+		success: function(data, textStatus, jqXHR){
+			alert('Item deleted successfully');
+			newItem();
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('deleteItem error: '+textStatus);
+		}
+	});
+};

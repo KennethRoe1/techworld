@@ -59,7 +59,7 @@ public class BasketDAO {
 	    public List<Basket> findByUserId(int userId){
 	    	List<Basket> list = new ArrayList<Basket>();
 	    	Connection c = null;
-	    	String sql = "select * from basket as e where user_id = ? order by instant_id";
+	    	String sql = "select * from basket where user_id = ? order by instant_id";
 	    	try {
 	    		c=ConnectionHelper.getConnection();
 	    		PreparedStatement ps = c.prepareStatement(sql);
@@ -83,9 +83,11 @@ public class BasketDAO {
 	  		PreparedStatement ps = null;
 	  		try {
 	  			c= ConnectionHelper.getConnection();
-	  			ps = c.prepareStatement("insert into items(user_id,item_id,itme_quantity) values(?,?,?)",
+	  			ps = c.prepareStatement("insert into basket(user_id,item_id,item_quantity) values(?,?,?)",
 	  					new String[] {"ID"});
 	  			ps.setInt(1, basket.getUserId());
+	  			ps.setInt(2,basket.getItemId());
+	  			ps.setInt(3, basket.getItemQuantity());
 	  			ps.executeUpdate();
 	  			ResultSet rs = ps.getGeneratedKeys();
 	  			rs.next();
@@ -103,11 +105,29 @@ public class BasketDAO {
 	  		Connection c = null;
 	  		try {
 	  			c=ConnectionHelper.getConnection();
-	  			PreparedStatement ps = c.prepareStatement("update basket set ,user_id=?, item_id=?, item_quantity=? where instant_id=?");
+	  			PreparedStatement ps = c.prepareStatement("update basket set user_id=?, item_id=?, item_quantity=? where instant_id=?");
 	  			ps.setInt(1, basket.getUserId());
 	  			ps.setInt(2, basket.getItemId());
 	  			ps.setInt(3,  basket.getItemQuantity());
 	  			ps.setInt(4, basket.getId());
+	  			ps.executeUpdate();
+	  		}catch(SQLException e){
+	  			e.printStackTrace();
+	  			throw new RuntimeException(e);
+	  		}finally {
+	  			ConnectionHelper.close(c);
+	  		}
+	  		return basket;
+	  	}
+	  	
+	  //update Quantity
+	  	public Basket updateQuantity(Basket basket) {
+	  		Connection c = null;
+	  		try {
+	  			c=ConnectionHelper.getConnection();
+	  			PreparedStatement ps = c.prepareStatement("update basket set item_quantity=? where instant_id=?");
+	  			ps.setInt(1,  basket.getItemQuantity());
+	  			ps.setInt(2, basket.getId());
 	  			ps.executeUpdate();
 	  		}catch(SQLException e){
 	  			e.printStackTrace();

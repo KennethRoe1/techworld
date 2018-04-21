@@ -87,7 +87,7 @@ var formToJSONA=function(){
 var formToJSONU=function(){
 	return JSON.stringify({
 		"id": $('#itemId').val(),
-		"pic": '',//$('#pic').val
+		"pic": '',//$('#pic').val,
 		"name": $('#name').val(),
 		"description":$('#description').val(),
 		"category":$('#category').val(),
@@ -157,16 +157,16 @@ function renderList(data){
 	});
 	
 	$('#table_id').DataTable();
-	output='<div class="row">';
+	output='<div id="cardTable" class="row">';
 	$.each(list, function(index, item){
 		var img="pics/"+item.pic;
 		output+=('<div class="col-sm-6 col-md-4 col-lg-3">'+
-				'<div class="card"><img src='+'"'+img+'"'+
+				'<div class="card" id="itemCard"><img src='+'"'+img+'"'+
 				'height="150"><p>Name: '+item.name+'</p>'+
 				'<p>Details: '+item.description+'</p>'+
 				'<p>Stock: '+item.stock+'</p>'+
 				'<p>Price: $'+item.price+'</p>'+
-				'<a id="'+item.id+'" href="addToBacket" class="addToBacket"> Add to Basket</a>'+
+				'<div id="aBB"><a id="'+item.id+'" href="addToBacket" class="addToBacket"> Add to Basket</a></div>'+
 				'</div></div>');
 	});
 	output+='</div>';

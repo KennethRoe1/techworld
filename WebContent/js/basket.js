@@ -1,10 +1,11 @@
 $(document).ready(function(){
-	//findAll3();
 	findByUserId(userVar);
 });
 var basketURL = "http://localhost:8080/TechWorld/rest/basket";
 var currenBasket;
+var anItem;
 
+// buttons
 $(document).on("click", "#cardTable a",function(){
 	event.preventDefault();
 	addToBasket(this.id);
@@ -15,40 +16,54 @@ $(document).on("click", "#basketTable a",function(){
 	deleteInstance(this.id);
 });
 
-var findAll3 = function() {
-	console.log('findAll3');
-	$.ajax({
-		type: 'GET',
-		url: basketURL,
-		dayaType:"json",
-		success: renderList3
-	});
-};
 
+// Queries and displays
 var findByUserId= function(id){
-	console.log('findByUserId '+id);
+	//console.log('findByUserId '+id);
 	$.ajax({
 		type: 'GET',
 		url: basketURL + '/query/?userId='+id,
 		dataType: "json",
-		success: renderList3
+		success: renderListB1
 	});
 };
 
-function renderList3(data){
+var findItemById= function(id){
+	console.log('findById '+id);
+	$.ajax({
+		type: 'GET',
+		url: rootURL + '/'+id,
+		dataType: "json",
+		success: function(data){
+			console.log('findById success: '+data.name);
+			anItem = data;
+			renderParts(anItem);
+		}
+	});
+};
+
+function renderListB1(data){
 	list=data;
 	$.each(list, function(index, basket){
-		console.log(data);
+		//console.log(data);
 		$('#basketTable').append('<tr class="theRows">'+
-				'<td>'+basket.id+'</td>'+
-				'<td>'+basket.userId+'</td>'+
-				'<td>'+basket.itemId+'</td>'+
-				'<td><input type="text" id="quantity" value="'+basket.itemQuantity+'"><button>Update</button></td>'+
+				'<td id="name'+basket.itemId+'"></td>'+
+				'<td id="Image'+basket.itemId+'">Image Here</td>'+
+				'<td id="price'+basket.itemId+'"></td>'+
+				'<td><input type="text" id="quantity" style="width: 30px" value="'+basket.itemQuantity+'"><button>Update</button></td>'+
 				'<td><a id="'+basket.id+'" href="remove">X</td>'+
 				'</tr>');
+		findItemById(basket.itemId);
 	});
 }
 
+var renderParts=function(item){
+	$('#name'+item.id).html(item.name);
+	$('#price'+item.id).html('$'+item.price);
+	console.log("rendering "+item.name);
+};
+
+// crud
 var addToBasket = function(id){
 	var itemId = id;
 	console.log('addToBasket');

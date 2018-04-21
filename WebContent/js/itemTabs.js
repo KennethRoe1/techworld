@@ -87,7 +87,7 @@ var formToJSONA=function(){
 var formToJSONU=function(){
 	return JSON.stringify({
 		"id": $('#itemId').val(),
-		"pic": '',//$('#pic').val
+		"pic": '',//$('#pic').val,
 		"name": $('#name').val(),
 		"description":$('#description').val(),
 		"category":$('#category').val(),

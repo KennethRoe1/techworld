@@ -48,7 +48,7 @@ function renderListB1(data){
 		//console.log(data);
 		$('#basketTable').append('<tr class="theRows">'+
 				'<td id="name'+basket.itemId+'"></td>'+
-				'<td id="Image'+basket.itemId+'">Image Here</td>'+
+				'<td id="image'+basket.itemId+'"></td>'+
 				'<td id="price'+basket.itemId+'"></td>'+
 				'<td><input type="text" id="quantity" style="width: 30px" value="'+basket.itemQuantity+'"><button>Update</button></td>'+
 				'<td><a id="'+basket.id+'" href="remove">X</td>'+
@@ -60,6 +60,7 @@ function renderListB1(data){
 var renderParts=function(item){
 	$('#name'+item.id).html(item.name);
 	$('#price'+item.id).html('$'+item.price);
+	$('#image'+item.id).html('<img src="pics/'+item.pic+'" alt="thumb" height="50"/>');
 	console.log("rendering "+item.name);
 };
 

@@ -22,7 +22,6 @@
 <body>
 	<div class="banner">
 		<a id="login" href="login">Login</a>
-		<a id="account" href="user.html">Account</a>
 		<button id="logout">Logout</button>
 		<h1>TechWorld</h1>
 		<h2>The one stop gadget store</h2>
@@ -74,6 +73,9 @@
     </li>
     <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#basket" role="tab" id="basketTab"><span class="fa fa-shopping-cart fa-lg"></span>Basket</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#account" role="tab" id="accountTab"><span class="fa fa-user-circle fa-lg"></span>Account</a>
     </li>
 
 </ul>
@@ -173,7 +175,7 @@
 	</div>
 </div>
 
-	<div class="tab-pane" id="basket">
+<div class="tab-pane" id="basket">
 	<div id="basketArea">
 	<table id="table_id3">
             	<thead>
@@ -183,42 +185,57 @@
             	</tbody>
             </table>
 	</div>
+</div>
+
+<div class="tab-pane" id="account">
+	<div id="accountArea">
+	<label>Name:</label>
+	<input id="cur_user_name" name="cur_user_name" type="text"/><br>
+	<label>E-mail:</label>
+	<input id="cur_user_email" name="cur_user_email" type="text"/><br>
+	<label>Password:</label>
+	<input type="text" id="cur_user_pass" name="cur_user_pass"/><br>
+	<label>Address:</label>
+	<input type="text" id="cur_user_address" name="cur_user_address"/><br>
+	<label>D.O.B.</label>
+	<input type="date" id="cur_user_dob" name="cur_user_dob"/><br>
+	<button id="aUpdate">Save Changes</button>
+	<button id="aDel">Delete Account</button>
 	</div>
 </div>
-    
-    <footer id="myFooter">
-		        <div class="container">
-		            <div class="row">
-		                <div class="col myCols">
-		                    <h5>About us</h5>
-		                    <ul>
-		                        <li><a href="#">Company Information</a></li>
-		                        <li><a href="#">Contact us</a></li>
-		                        <li><a href="#">Reviews</a></li>
-		                    </ul>
-		                </div>
-		                <div class="col myCols">
-		                    <h5>Support</h5>
-		                    <ul>
-		                        <li><a href="#">FAQ</a></li>
-		                        <li><a href="#">Help desk</a></li>
-		                        <li><a href="#">Forums</a></li>
-		                    </ul>
-		                </div>
-		            </div>
-		        </div>
-		        <div class="social-networks">
-		            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-		            <a href="#" class="facebook"><i class="fa fa-facebook-official"></i></a>
-		            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
-		        </div>
-		        <div class="footer-copyright">
-		            <p>© 2018 Athlone Institute of Technology </p>
-		        </div>
-		    </footer>
-    
 
+</div>
 
     </section>
+<footer id="myFooter">
+    <div class="container">
+        <div class="row">
+            <div class="col myCols">
+                <h5>About us</h5>
+                <ul>
+                    <li><a href="#">Company Information</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="col myCols">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Help desk</a></li>
+                    <li><a href="#">Forums</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="social-networks">
+        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+        <a href="#" class="facebook"><i class="fa fa-facebook-official"></i></a>
+        <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+    </div>
+    <div class="footer-copyright">
+        <p>© 2018 Athlone Institute of Technology </p>
+    </div>
+</footer>
 </body>
 </html>

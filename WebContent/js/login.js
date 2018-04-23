@@ -13,6 +13,7 @@ $(document).ready(function () {
 		$('#adminTab').show();
 		$('#usersTab').show();
 		$('#logout').show();
+		$('#accountTab').show();
 		$('#basketTab').hide();
 		$('#aBB').hide();
 	}
@@ -24,6 +25,7 @@ $(document).ready(function () {
 		$('#adminTab').hide();
 		$('#usersTab').hide();
 		$('#aBB').show();
+		$('#accountTab').show();
 	
 	}
 	else if (loginVar == 0){
@@ -34,6 +36,7 @@ $(document).ready(function () {
 		$('#usersTab').hide();
 		$('#basketTab').hide();
 		$('#aBB').hide();
+		$('#accountTab').hide();
 		userVar = 0;
 	
 	}
@@ -46,7 +49,11 @@ $(document).ready(function () {
 		$('#addBasket').hide();
 		$('#basketTab').hide();
 		$('#aBB').hide();
+		$('#accountTab').hide();
 		userVar = 0;
+	}
+	if(userVar==1 || userVar==2){
+		findByAId(userVar);
 	}
 	
 	$(document).on("click","#login",function(){
@@ -170,6 +177,28 @@ var  findByEmail= function(email) {
 		}
 	});
 	return userData;
+};
+
+var findByAId= function(userVar){
+	console.log('findByAId '+userVar);
+	$.ajax({
+		type: 'GET',
+		url: userURL + '/'+userVar,
+		dataType: "json",
+		success: function(data){
+			user = data;
+			$('#delete').show();
+			renderAccount(user);
+		}
+	});
+};
+
+var renderAccount=function(user){
+	$('#cur_user_name').val(user.name);
+	$('#cur_user_email').val(user.email);
+	$('#cur_user_pass').val(user.pass);
+	$('#cur_user_address').val(user.address);
+	$('#cur_user_dob').val(user.dob);
 };
 
 function userTypeLogin(userRole){

@@ -132,6 +132,12 @@ function login(emailToCheck, passwordToCheck){
 //register needs work, getting error 405 method not allowed 
 
 var formToJSON2B=function(){
+	if (!$('#nName').val() || !$('#nEmail').val() || !$('#nPass').val() || !$('#nAddress').val() || !$('#nDob').val()) {
+		$('#regError').slideDown().html('<span id="error">Required field missing</span>');	
+	}
+	else
+	{
+	
 	return JSON.stringify({
 		"name": $('#nName').val(),
 		"email":$('#nEmail').val(),
@@ -140,6 +146,7 @@ var formToJSON2B=function(){
 		"dob": $('#nDob').val(),
 		"role": "user"
 	});
+};
 };
 
 var register = function(){

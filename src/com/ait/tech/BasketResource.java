@@ -48,13 +48,13 @@ BasketDAO dao = new BasketDAO();
 		System.out.println("new basket");
 		return dao.create(basket);
 	}
-	//update
+	//update quantity
 	@PUT @Path("{id}")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Basket update(Basket basket) {
 		System.out.println("Updating basket: "+basket.getId());
-		dao.update(basket);
+		dao.updateQuantity(basket);
 		return basket;
 	}
 	//delete

@@ -16,6 +16,13 @@ $(document).on("click", "#basketTable a",function(){
 	deleteInstance(this.id);
 });
 
+$(document).on("click", ".updateQBtn",function(){
+	var theN=this.id;
+	var theQ=$('#quantity'+theN).val();
+	console.log('update pressed, N='+theN+', Q='+theQ);
+	updateQuantity(theN,theQ);
+	
+});
 
 // Queries and displays
 var findByUserId= function(id){
@@ -50,7 +57,7 @@ function renderListB1(data){
 				'<td id="name'+basket.itemId+'"></td>'+
 				'<td id="image'+basket.itemId+'"></td>'+
 				'<td id="price'+basket.itemId+'"></td>'+
-				'<td><input type="text" id="quantity" style="width: 30px" value="'+basket.itemQuantity+'"><button>Update</button></td>'+
+				'<td><input type="text" id="quantity'+basket.id+'" style="width: 30px" value="'+basket.itemQuantity+'"><button class="updateQBtn" id="'+basket.id+'">Update</button></td>'+
 				'<td><a id="'+basket.id+'" href="remove">X</td>'+
 				'</tr>');
 		findItemById(basket.itemId);
@@ -95,14 +102,14 @@ var formToJSONI=function(itemId){
 	});
 };
 
-var updateQuantity = function(id){
+var updateQuantity = function(id, quantity){
 	console.log('updateing quantity of instance '+id);
 	$.ajax({
 		type: 'PUT',
 		contentType: 'application/json',
-		url: basketURL+'/'+$('#Id').val(),
+		url: basketURL+'/'+id,
 		dataType: "json",
-		data: formToJSONU(),
+		data: JSON.stringify({"id": id,"itemQuantity": quantity}),
 		success: function(data, textStatus, jqXHR){
 			alert('Item updated successfully');
 			console.log(data);

@@ -52,7 +52,7 @@ $(document).ready(function () {
 		$('#accountTab').hide();
 		userVar = 0;
 	}
-	if(userVar==1 || userVar==2){
+	if(userVar!=0){
 		findByAId(userVar);
 	}
 	

@@ -42,7 +42,6 @@ var findItemById= function(id){
 		url: rootURL + '/'+id,
 		dataType: "json",
 		success: function(data){
-			console.log('findById success: '+data.name);
 			anItem = data;
 			renderParts(anItem);
 		}
@@ -68,7 +67,6 @@ var renderParts=function(item){
 	$('#name'+item.id).html(item.name);
 	$('#price'+item.id).html('$'+item.price);
 	$('#image'+item.id).html('<img src="pics/'+item.pic+'" alt="thumb" height="50"/>');
-	console.log("rendering "+item.name);
 };
 
 // crud

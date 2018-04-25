@@ -36,7 +36,6 @@ var findByUserId= function(id){
 };
 
 var findItemById= function(id){
-	console.log('findById '+id);
 	$.ajax({
 		type: 'GET',
 		url: rootURL + '/'+id,

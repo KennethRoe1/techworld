@@ -5,7 +5,7 @@ var basketURL = "http://localhost:8080/TechWorld/rest/basket";
 var currenBasket;
 var anItem;
 
-// buttons
+//buttons
 $(document).on("click", "#cardTable a",function(){
 	event.preventDefault();
 	addToBasket(this.id);
